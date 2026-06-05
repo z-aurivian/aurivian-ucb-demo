@@ -30,10 +30,10 @@ export const VEGA_INTERACTION_QUALITY = {
 
 // 1.3 Engagement Gap Tracker — Tier 1/2 KOLs not contacted within window.
 export const VEGA_ENGAGEMENT_GAPS = [
-  { kol: 'Dr. James Okonkwo', tier: 'Tier 2', lastContact: '2025-03-12', gap: '6 weeks', action: 'Re-engage urgently' },
-  { kol: 'Prof. Linda Walsh', tier: 'Tier 1', lastContact: '2025-03-28', gap: '4 weeks', action: 'Schedule soon' },
-  { kol: 'Dr. Ahmed Hassan',  tier: 'Tier 2', lastContact: '2025-04-02', gap: '3 weeks', action: 'Plan interaction' },
-  { kol: 'Dr. Yuki Tanaka',   tier: 'Tier 1', lastContact: '2025-04-14', gap: '1 week',  action: 'On track' },
+  { kol: 'Dr. James Okonkwo', tier: 'Tier 2', lastContact: '2026-03-12', gap: '12 weeks', action: 'Re-engage urgently' },
+  { kol: 'Prof. Linda Walsh', tier: 'Tier 1', lastContact: '2026-04-04', gap: '8 weeks',  action: 'Schedule soon' },
+  { kol: 'Dr. Ahmed Hassan',  tier: 'Tier 2', lastContact: '2026-04-25', gap: '5 weeks',  action: 'Plan interaction' },
+  { kol: 'Dr. Yuki Tanaka',   tier: 'Tier 1', lastContact: '2026-05-22', gap: '2 weeks',  action: 'On track' },
 ];
 
 // 2.1 Share of Scientific Voice — vs competitors.
