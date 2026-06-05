@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light theme — Aurivian locked palette */
+  --auri-bg:     255 255 255;
+  --auri-card:   249 250 251;
+  --auri-offset: 249 252 255;
+  --auri-blue:   66 133 244;
+  --auri-text:   17 24 39;
+  --auri-muted:  75 85 99;
+  --auri-border: 229 231 235;
+}
+
+.dark {
+  /* Dark theme — Aurivian dark palette */
+  --auri-bg:     17 17 17;
+  --auri-card:   45 44 44;
+  --auri-offset: 30 30 30;
+  --auri-blue:   0 168 255;
+  --auri-text:   250 250 250;
+  --auri-muted:  141 140 140;
+  --auri-border: 60 60 60;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(var(--auri-bg));
+  color: rgb(var(--auri-text));
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--auri-card));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--auri-border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--auri-blue));
+}
