@@ -1,65 +1,61 @@
-// Predictive Signals — Command Center & NOVA.
-// Replaces the simpler "New Signals" feed. Each signal carries an agent
-// attribution (which agent surfaced it) plus trajectory / confidence /
-// time-to-impact framing borrowed from the Alexion Momentum Indicators
-// pattern.
-//
-// Default fill: Alexion (template example). Overwrite per demo.
+// Predictive Signals — UCB demo.
+// VEGA-first framing: signals tie back to MA impact measurement (MO2 Gap).
+// Sovereign cloud context: all signals processed within ucb-prod-azure.
 
 export const PREDICTIVE_SIGNALS = [
   {
     id: 'ps-1',
-    agent: 'NOVA',
-    signal: 'Biosimilar formulary displacement accelerating',
-    currentState: 'Three major US PBMs have excluded originator Soliris from 2026 national formularies. EU5 markets show 35% biosimilar penetration in new patient starts.',
-    trajectory: 'rising',
-    timeToImpact: '0–6 months',
-    confidence: 'high',
-    requiredAction: 'Accelerate Soliris→Ultomiris conversion outreach to prescribers managing stable patients at risk of forced biosimilar switching.',
-    suggestedAction: { label: 'Open in NOVA', path: '/insights' },
-  },
-  {
-    id: 'ps-2',
-    agent: 'ARIA',
-    signal: 'Competitor symposium added at EHA 2026 (iptacopan)',
-    currentState: 'Late-breaking PNH extension data announced. No equivalent Alexion session currently scheduled in that room.',
+    agent: 'VEGA',
+    signal: 'MA impact reporting gap widening across HS portfolio',
+    currentState: 'VEGA analysis shows 74% of Bimzelx HS MSL interactions generate captured insights that are never formally tied to a Medical Objective outcome. Leadership reviews rely on anecdote rather than measurement. MO2 coverage score: Gap.',
     trajectory: 'rising',
     timeToImpact: '0–3 months',
     confidence: 'high',
-    requiredAction: 'Brief MSL team before session. Prepare response talking points and an evidence one-pager.',
-    suggestedAction: { label: 'Open in ARIA', path: '/congress' },
+    requiredAction: 'Deploy VEGA MA impact dashboard to surface MSL execution quality, KOL alignment velocity, and insight-to-action conversion rate ahead of next quarterly leadership review.',
+    suggestedAction: { label: 'Open in VEGA', path: '/vega' },
+  },
+  {
+    id: 'ps-2',
+    agent: 'NOVA',
+    signal: 'Bimzelx HS share of conversation vs Humira biosimilars accelerating',
+    currentState: 'NOVA detected a 3-month trend of increasing physician discussion of Bimzelx vs adalimumab biosimilars in biologic-experienced HS. Currently 58% of HS biologic conversations reference Bimzelx. Biosimilar price pressure is reshaping community dermatology prescribing patterns.',
+    trajectory: 'rising',
+    timeToImpact: '0–6 months',
+    confidence: 'high',
+    requiredAction: 'Brief MSL team on long-term durability and biologic-experienced subgroup data. Prepare one-page HS evidence summary for rapid field deployment.',
+    suggestedAction: { label: 'Open in NOVA', path: '/insights' },
   },
   {
     id: 'ps-3',
     agent: 'LUCA',
-    signal: 'Sentiment shift: Dr. K. Rhee toward C5 sequencing in NMOSD',
-    currentState: 'Two recent congress talks and one podcast indicate shifting preference on sequencing C5 vs IL-6 inhibition.',
+    signal: 'KOL alignment velocity slowing on IL-17A/F differentiation',
+    currentState: '3 tier-1 dermatology KOLs shifted from "aligned" to "neutral" on dual IL-17A+F differentiation vs Taltz over 90 days. A competitor-sponsored real-world registry is driving re-evaluation among prescribers who haven\'t seen the most recent IL-17F mechanism data.',
     trajectory: 'rising',
     timeToImpact: '3–6 months',
     confidence: 'medium',
-    requiredAction: 'Schedule scientific exchange focused on C5 sequencing data; prepare advisory board invitation.',
+    requiredAction: 'Schedule proactive scientific exchanges with 3 shifting KOLs. Share IL-17F mechanism data package and real-world durability evidence before the competitor narrative hardens.',
     suggestedAction: { label: 'Open in LUCA', path: '/kol' },
   },
   {
     id: 'ps-4',
     agent: 'NOVA',
-    signal: 'Recurrence threshold hit: infusion-burden switch hesitancy',
-    currentState: 'Insight AI1 recorded a third source this month — now at Prioritised status. Strategy-to-Action recommends community-facing switching materials.',
+    signal: 'HS biologic-naïve prescribing barrier: step therapy persistence',
+    currentState: 'Insight AI3 has recurred in 4 separate MSL reports — dermatologists want to use Bimzelx earlier in biologic-naïve HS but payer step therapy for TNF-alpha failure first creates a 4–6 month delay in appropriate patients.',
     trajectory: 'rising',
     timeToImpact: '3–6 months',
     confidence: 'high',
-    requiredAction: 'Approve patient-facing switching one-pager; deploy community KIT to MSL field team.',
+    requiredAction: 'Commission payer landscape analysis on HS step therapy requirements. Develop prior-auth support materials for field medical teams.',
     suggestedAction: { label: 'Review in NOVA', path: '/insights' },
   },
   {
     id: 'ps-5',
-    agent: 'LUCA',
-    signal: '2 emerging NMOSD KOLs crossed the watch threshold',
-    currentState: 'Publication cadence and congress-speaking frequency both up 40% vs prior 6 months. Neither is currently on the NMOSD engagement list.',
-    trajectory: 'rising',
-    timeToImpact: '3–6 months',
-    confidence: 'medium',
-    requiredAction: 'Add to LUCA watch list; assign MSL for initial outreach.',
-    suggestedAction: { label: 'Open in LUCA', path: '/kol' },
+    agent: 'VEGA',
+    signal: 'Insight-to-action conversion rate: 31% vs 60% target',
+    currentState: 'VEGA ROMI analysis shows only 31% of captured field insights progress to a formal action within 90 days — half the 60% target. The bottleneck is triage: no structured pathway exists between MSL insight capture and NOVA strategy-to-action review.',
+    trajectory: 'stable',
+    timeToImpact: '0–3 months',
+    confidence: 'high',
+    requiredAction: 'Establish a weekly insight triage cadence in NOVA. Route high-recurrence insights directly to action owners with a defined 10-day SLA for response.',
+    suggestedAction: { label: 'Open in VEGA', path: '/vega' },
   },
 ];

@@ -14,7 +14,7 @@ import AuriSidebar from './components/AuriSidebar';
 import ArtifactLibrary from './components/ArtifactLibrary';
 import InsightJourney from './components/InsightJourney';
 import Vega from './components/Vega';
-import { PRODUCT_OPTIONS, CONGRESS_OPTIONS, OUTCOME_VOLUME, CAPTURE_APP_URL } from './config';
+import { PRODUCT_OPTIONS, CONGRESS_OPTIONS, OUTCOME_VOLUME, CAPTURE_APP_URL, CLIENT } from './config';
 import './App.css';
 
 const THEME_KEY = 'aurivian.theme';
@@ -113,6 +113,12 @@ function Shell() {
 
           {/* Right cluster: chip + selectors + theme + signout */}
           <div className="flex items-center gap-3 shrink-0">
+            {CLIENT.cloudLabel && (
+              <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-auri-card border border-auri-border text-xs text-auri-muted" title="Aurivian is deployed within your sovereign cloud environment">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
+                <span className="font-mono text-[10px] tracking-wide">{CLIENT.cloudLabel}</span>
+              </div>
+            )}
             <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-auri-card border border-auri-border text-xs text-auri-muted">
               <span className="font-medium text-auri-text">Outcome Volume</span>
               <span>{OUTCOME_VOLUME.consumed.toLocaleString()} / {OUTCOME_VOLUME.committed.toLocaleString()}</span>
