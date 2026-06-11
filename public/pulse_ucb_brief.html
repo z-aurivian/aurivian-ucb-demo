@@ -121,6 +121,49 @@ body {
   font-family: 'IBM Plex Mono', monospace;
 }
 
+.btn-listen {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--info-dim); border: 1px solid var(--info);
+  border-radius: 5px; padding: 5px 10px;
+  font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 600;
+  color: var(--info); letter-spacing: 0.04em; cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-listen:hover { background: rgba(59,130,246,0.18); }
+.btn-listen.playing { background: rgba(59,130,246,0.18); }
+.listen-dot { width: 5px; height: 5px; background: var(--info); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+
+/* Audio player bar */
+#audio-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+  background: var(--card); border-top: 1px solid var(--border-md);
+  padding: 10px 20px;
+  align-items: center; gap: 14px;
+}
+#audio-bar.open { display: flex; }
+.audio-play-btn {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: var(--text); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.15s;
+}
+.audio-play-btn:hover { opacity: 0.80; }
+.audio-play-icon  { font-size: 11px; color: var(--bg); margin-left: 2px; }
+.audio-pause-icon { font-size: 11px; color: var(--bg); }
+.audio-meta { display: flex; flex-direction: column; gap: 1px; min-width: 160px; }
+.audio-title { font-size: 11px; font-weight: 700; color: var(--text); }
+.audio-subtitle { font-size: 9px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.audio-progress-wrap { flex: 1; display: flex; align-items: center; gap: 10px; }
+.audio-track { flex: 1; height: 3px; background: var(--border-md); border-radius: 2px; cursor: pointer; position: relative; }
+.audio-fill { height: 100%; background: var(--text); border-radius: 2px; width: 0%; transition: width 0.25s linear; }
+.audio-time { font-size: 9px; color: var(--muted); white-space: nowrap; min-width: 70px; text-align: right; font-family: 'IBM Plex Mono', monospace; }
+.audio-close {
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  font-size: 16px; line-height: 1; padding: 4px; transition: color 0.15s;
+}
+.audio-close:hover { color: var(--text); }
+
 .btn-persona {
   display: flex; align-items: center; gap: 5px;
   background: var(--subtle); border: 1px solid var(--border-md);
@@ -500,6 +543,9 @@ body {
     <span class="topbar-date">Tue, June 10 2026</span>
   </div>
   <div class="topbar-right">
+    <button class="btn-listen" id="listen-btn" onclick="openAudio()">
+      <span class="listen-dot"></span>&#9654;&nbsp;Listen
+    </button>
     <button class="btn-persona" onclick="openPersona()">
       <div class="persona-dot">?</div>Personalize
     </button>
@@ -1420,6 +1466,84 @@ function switchBrief(card, briefId) {
 
 function openPersona() { document.getElementById('overlay').classList.add('open'); }
 function closePersona() { document.getElementById('overlay').classList.remove('open'); }
+
+// ── AUDIO PLAYER ──────────────────────────────
+const audio  = document.getElementById('brief-audio');
+const bar    = document.getElementById('audio-bar');
+const fill   = document.getElementById('audio-fill');
+const timeEl = document.getElementById('audio-time');
+const icon   = document.getElementById('play-icon');
+
+function fmt(s) {
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+audio.addEventListener('timeupdate', function() {
+  if (!audio.duration) return;
+  fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+  timeEl.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+});
+
+audio.addEventListener('ended', function() {
+  icon.innerHTML = '&#9654;';
+  document.getElementById('listen-btn').classList.remove('playing');
+});
+
+function openAudio() {
+  bar.classList.add('open');
+  audio.play().then(function() {
+    icon.innerHTML = '&#9646;&#9646;';
+    document.getElementById('listen-btn').classList.add('playing');
+  }).catch(function(err) { console.warn('Audio play failed:', err); });
+}
+
+function toggleAudio() {
+  if (audio.paused) {
+    audio.play().then(function() {
+      icon.innerHTML = '&#9646;&#9646;';
+      document.getElementById('listen-btn').classList.add('playing');
+    }).catch(function(err) { console.warn('Audio play failed:', err); });
+  } else {
+    audio.pause();
+    icon.innerHTML = '&#9654;';
+    document.getElementById('listen-btn').classList.remove('playing');
+  }
+}
+
+function closeAudio() {
+  audio.pause();
+  audio.currentTime = 0;
+  bar.classList.remove('open');
+  icon.innerHTML = '&#9654;';
+  fill.style.width = '0%';
+  document.getElementById('listen-btn').classList.remove('playing');
+}
+
+function scrubAudio(e) {
+  const rect = document.getElementById('audio-track').getBoundingClientRect();
+  audio.currentTime = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * audio.duration;
+}
 </script>
+
+<!-- AUDIO BAR -->
+<div id="audio-bar">
+  <button class="audio-play-btn" onclick="toggleAudio()" id="play-btn">
+    <span id="play-icon" class="audio-play-icon">&#9654;</span>
+  </button>
+  <div class="audio-meta">
+    <div class="audio-title">Pulse Brief · June 11, 2026</div>
+    <div class="audio-subtitle">UCB Medical Intelligence · 2 min 37 sec</div>
+  </div>
+  <div class="audio-progress-wrap">
+    <div class="audio-track" onclick="scrubAudio(event)" id="audio-track">
+      <div class="audio-fill" id="audio-fill"></div>
+    </div>
+    <span class="audio-time" id="audio-time">0:00 / 2:37</span>
+  </div>
+  <button class="audio-close" onclick="closeAudio()" title="Close">&#215;</button>
+</div>
+<audio id="brief-audio" src="pulse_ucb_brief_audio.mp3" preload="metadata"></audio>
+
 </body>
 </html>
