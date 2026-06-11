@@ -3,25 +3,40 @@
 @tailwind utilities;
 
 :root {
-  /* Light theme — Aurivian locked palette */
-  --auri-bg:     255 255 255;
-  --auri-card:   249 250 251;
-  --auri-offset: 249 252 255;
-  --auri-blue:   66 133 244;
-  --auri-text:   17 24 39;
-  --auri-muted:  75 85 99;
-  --auri-border: 229 231 235;
+  /* Monochrome palette — light (bone bg, paper cards) */
+  --auri-bg:       248 248 245;   /* bone     #F8F8F5 — page background */
+  --auri-card:     255 255 255;   /* paper    #FFFFFF — cards pop against bone */
+  --auri-offset:   241 241 237;   /* surface2 #F1F1ED — chrome/header areas */
+  --auri-text:     20 22 26;      /* text     #14161A */
+  --auri-muted:    90 94 98;      /* text2    #5A5E62 */
+  --auri-border:   231 231 225;   /* line     #E7E7E1 — subtle, barely visible */
+  /* informational blue — semantic only, not brand */
+  --auri-blue:     59 130 246;    /* #3B82F6 */
+  /* extended monochrome scale */
+  --auri-graphite: 58 58 60;      /* #3A3A3C */
+  --auri-ash:      154 154 149;   /* #9A9A95 */
+  --auri-bone:     241 241 237;   /* #F1F1ED */
+  /* semantic signal palette */
+  --s-urgent:   220 74 65;        /* #DC4A41 */
+  --s-caution:  224 161 46;       /* #E0A12E */
+  --s-new:      63 165 106;       /* #3FA56A */
+  --s-info:     59 130 246;       /* #3B82F6 */
+  --s-emerging: 139 124 240;      /* #8B7CF0 */
+  --s-stable:   142 146 150;      /* #8E9296 */
 }
 
 .dark {
-  /* Dark theme — Aurivian dark palette */
-  --auri-bg:     17 17 17;
-  --auri-card:   45 44 44;
-  --auri-offset: 30 30 30;
-  --auri-blue:   0 168 255;
-  --auri-text:   250 250 250;
-  --auri-muted:  141 140 140;
-  --auri-border: 60 60 60;
+  /* Monochrome palette — dark (ink bg, slightly lighter cards) */
+  --auri-bg:       11 11 12;      /* ink      #0B0B0C */
+  --auri-card:     22 22 23;      /* near-ink — cards barely pop */
+  --auri-offset:   30 30 30;      /* chrome/header surface */
+  --auri-text:     248 248 245;   /* near-paper */
+  --auri-muted:    154 154 149;   /* ash      #9A9A95 */
+  --auri-border:   45 45 47;      /* subtle dark border */
+  --auri-blue:     59 130 246;    /* informational — same */
+  --auri-graphite: 58 58 60;
+  --auri-ash:      154 154 149;
+  --auri-bone:     30 30 30;
 }
 
 * {
@@ -31,7 +46,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(var(--auri-bg));
@@ -39,7 +54,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: 'IBM Plex Mono', source-code-pro, Menlo, Monaco, Consolas, monospace;
 }
 
 ::-webkit-scrollbar {
@@ -53,5 +68,5 @@ code {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--auri-blue));
+  background: rgb(var(--auri-graphite));
 }

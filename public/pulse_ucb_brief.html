@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCB · Aurivian Pulse · Immunology &amp; Neurology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #F8F8F5;
+  --card:      #FFFFFF;
+  --offset:    #F1F1ED;
+  --border:    rgba(20,22,26,0.07);
+  --border-md: rgba(20,22,26,0.12);
+  --text:      #14161A;
+  --muted:     #5A5E62;
+  --subtle:    rgba(20,22,26,0.03);
+
+  --green:     #3FA56A;
+  --green-dim: rgba(63,165,106,0.10);
+  --amber:     #E0A12E;
+  --amber-dim: rgba(224,161,46,0.10);
+  --red:       #DC4A41;
+  --red-dim:   rgba(220,74,65,0.10);
+  --info:      #3B82F6;
+  --info-dim:  rgba(59,130,246,0.10);
+  --emerging:  #8B7CF0;
+  --emg-dim:   rgba(139,124,240,0.10);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--offset); }
+::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 2px; }
+
+/* ── SHELL ─────────────────────────────────── */
+#shell {
+  display: grid;
+  grid-template-columns: 236px 1fr;
+  grid-template-rows: 48px 1fr;
+  grid-template-areas: "topbar topbar" "sidebar main";
+  height: 100vh;
+  overflow: hidden;
+  transition: grid-template-columns 0.22s ease;
+}
+#shell.collapsed { grid-template-columns: 0px 1fr; }
+
+/* ── TOPBAR ────────────────────────────────── */
+#topbar {
+  grid-area: topbar;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+}
+.topbar-left  { display: flex; align-items: center; gap: 10px; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+
+.topbar-wordmark {
+  font-family: 'Michroma', sans-serif;
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: 0.06em;
+}
+
+.topbar-divider { width: 1px; height: 18px; background: var(--border-md); }
+
+.topbar-product {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.ucb-chip {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(20,22,26,0.06);
+  border: 1px solid rgba(20,22,26,0.15);
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.azure-chip {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--info-dim);
+  border: 1px solid rgba(59,130,246,0.3);
+  color: var(--info);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.topbar-date {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.btn-persona {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--subtle); border: 1px solid var(--border-md);
+  border-radius: 5px; padding: 5px 10px;
+  font-size: 10px; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  font-family: 'Manrope', sans-serif;
+}
+.btn-persona:hover { border-color: var(--text); color: var(--text); }
+.persona-dot {
+  width: 16px; height: 16px; background: var(--subtle);
+  border: 1px solid var(--border-md); border-radius: 50%;
+  font-size: 8px; color: var(--muted); font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── SIDEBAR TOGGLE ────────────────────────── */
+#sidebar-toggle {
+  position: fixed; left: 224px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 36px;
+  background: var(--card); border: 1px solid var(--border-md); border-left: none;
+  border-radius: 0 4px 4px 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--muted);
+  z-index: 200; transition: left 0.22s ease;
+}
+#shell.collapsed #sidebar-toggle { left: 0px; }
+
+/* ── SIDEBAR ───────────────────────────────── */
+#sidebar {
+  grid-area: sidebar;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; overflow-x: hidden;
+  transition: opacity 0.2s ease;
+}
+#shell.collapsed #sidebar { opacity: 0; pointer-events: none; }
+
+.sidebar-inner { padding: 12px 0; min-width: 236px; }
+
+.sidebar-section-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); padding: 0 12px 6px; margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.brief-card {
+  padding: 9px 12px; cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: background 0.13s; position: relative;
+}
+.brief-card:hover { background: var(--subtle); }
+.brief-card.active { border-left-color: var(--text); background: var(--offset); }
+.brief-card-title { font-size: 11px; font-weight: 500; color: rgba(20,22,26,0.65); line-height: 1.4; margin-bottom: 2px; }
+.brief-card.active .brief-card-title { color: var(--text); font-weight: 600; }
+.brief-card-meta { font-size: 9px; color: var(--muted); letter-spacing: 0.02em; font-family: 'IBM Plex Mono', monospace; }
+.new-dot { width: 5px; height: 5px; background: var(--red); border-radius: 50%; position: absolute; top: 9px; right: 10px; animation: pulse-dot 2.5s ease-in-out infinite; }
+
+.sidebar-rule { height: 1px; background: var(--border); margin: 10px 12px; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 7px; padding: 7px 12px;
+  cursor: pointer; font-size: 11px; font-weight: 500;
+  color: rgba(20,22,26,0.5); transition: background 0.13s, color 0.13s;
+  text-decoration: none;
+}
+.nav-item:hover { background: var(--subtle); color: var(--text); }
+.nav-item.active { color: var(--text); background: var(--offset); font-weight: 600; }
+.nav-icon { font-size: 12px; width: 14px; text-align: center; opacity: 0.7; }
+.nav-item.active .nav-icon { opacity: 1; }
+
+/* ── MAIN ──────────────────────────────────── */
+#main { grid-area: main; overflow-y: auto; background: var(--bg); }
+.view { display: none; }
+.view.active { display: block; }
+.brief-content { display: none; }
+.brief-content.active { display: block; }
+
+/* ── BRIEF VIEW ────────────────────────────── */
+#view-brief { max-width: 780px; margin: 0 auto; padding: 28px 36px 80px; }
+
+.brief-eyebrow { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+
+.tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.tag-outline  { border: 1px solid var(--border-md); color: var(--muted); }
+.tag-ink      { background: var(--text); color: var(--bg); }
+.tag-urgent   { background: var(--red-dim); border: 1px solid rgba(220,74,65,0.3); color: var(--red); }
+.tag-caution  { background: var(--amber-dim); border: 1px solid rgba(224,161,46,0.3); color: var(--amber); }
+.tag-new      { background: var(--green-dim); border: 1px solid rgba(63,165,106,0.3); color: var(--green); }
+.tag-info     { background: var(--info-dim); border: 1px solid rgba(59,130,246,0.3); color: var(--info); }
+.tag-emerging { background: var(--emg-dim); border: 1px solid rgba(139,124,240,0.3); color: var(--emerging); }
+
+.eyebrow-date { margin-left: auto; font-size: 10px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+
+.brief-headline {
+  font-size: 24px; font-weight: 800; color: var(--text);
+  line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.brief-headline em { font-style: normal; border-bottom: 2px solid var(--text); }
+
+.brief-lede {
+  font-size: 13px; font-weight: 400; color: var(--muted);
+  line-height: 1.85; max-width: 64ch; margin-bottom: 16px;
+}
+
+.brief-meta {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+.meta-item { display: flex; flex-direction: column; gap: 2px; }
+.meta-label { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.meta-value { font-size: 12px; font-weight: 700; color: var(--text); }
+.meta-value.warn { color: var(--amber); }
+.meta-value.dim  { color: var(--muted); font-weight: 400; }
+.meta-value.red  { color: var(--red); }
+
+.situation-room {
+  background: var(--card); border: 1px solid var(--border-md);
+  border-top: 2px solid var(--text);
+  border-radius: 8px; padding: 18px 20px; margin-bottom: 28px;
+}
+.situation-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.situation-body { font-size: 13px; line-height: 1.8; color: var(--muted); }
+.situation-body strong { color: var(--text); font-weight: 700; }
+
+.section-rule { height: 1px; background: var(--border); margin: 28px 0; }
+
+.brief-section { opacity: 0; transform: translateY(8px); animation: fadeUp 0.35s ease forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.section-number { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.section-num {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.section-num::before { content: ''; display: inline-block; width: 16px; height: 1px; background: var(--muted); opacity: 0.4; }
+.section-cat { font-size: 9px; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+
+.section-h2 {
+  font-size: 17px; font-weight: 700; color: var(--text);
+  line-height: 1.4; margin-bottom: 10px;
+}
+.section-h2 em { font-style: normal; border-bottom: 2px solid var(--text); }
+
+.pills { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
+.pill { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 3px; border: 1px solid; font-family: 'IBM Plex Mono', monospace; }
+.pill-hot   { background: var(--amber-dim); border-color: rgba(224,161,46,0.35); color: var(--amber); }
+.pill-alert { background: var(--red-dim);   border-color: rgba(220,74,65,0.35);  color: var(--red); }
+.pill-watch { background: var(--info-dim);  border-color: rgba(59,130,246,0.35); color: var(--info); }
+.pill-new   { background: var(--green-dim); border-color: rgba(63,165,106,0.35); color: var(--green); }
+.pill-emg   { background: var(--emg-dim);   border-color: rgba(139,124,240,0.35);color: var(--emerging); }
+
+.section-body { font-size: 13px; line-height: 1.85; color: var(--muted); margin-bottom: 14px; }
+
+.pull-quote {
+  border-left: 2px solid var(--text); background: var(--card);
+  padding: 14px 16px; margin: 14px 0; border-radius: 0 6px 6px 0;
+}
+.pull-quote-text { font-size: 13px; font-style: italic; color: rgba(20,22,26,0.7); line-height: 1.75; margin-bottom: 8px; }
+.pull-quote-cite { font-size: 9px; color: var(--muted); letter-spacing: 0.03em; font-family: 'IBM Plex Mono', monospace; }
+
+.sources { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.source-chip {
+  font-size: 9px; border: 1px solid var(--border-md); border-radius: 3px;
+  padding: 3px 8px; color: var(--info); text-decoration: none;
+  transition: background 0.13s, border-color 0.13s;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.source-chip:hover { background: var(--info-dim); border-color: var(--info); }
+
+.fvq {
+  background: rgba(224,161,46,0.06); border-left: 2px solid var(--amber);
+  padding: 12px 14px; border-radius: 0 5px 5px 0; margin-top: 14px;
+}
+.fvq-label { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; font-family: 'IBM Plex Mono', monospace; }
+.fvq-text  { font-size: 12px; font-style: italic; color: var(--muted); line-height: 1.65; }
+
+.kol-intro { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+.kol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.kol-card { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 14px; }
+.kol-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.kol-avatar {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+.av-ink   { background: rgba(20,22,26,0.08); border: 1px solid rgba(20,22,26,0.15); color: var(--text); }
+.av-green { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
+.av-amber { background: var(--amber-dim); border: 1px solid var(--amber); color: var(--amber); }
+.av-red   { background: var(--red-dim);   border: 1px solid var(--red);   color: var(--red); }
+.av-emg   { background: var(--emg-dim);   border: 1px solid var(--emerging); color: var(--emerging); }
+.kol-name  { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.kol-title { font-size: 10px; color: var(--muted); line-height: 1.4; margin-bottom: 4px; }
+.kol-platforms { display: flex; gap: 3px; flex-wrap: wrap; }
+.kol-platform { font-size: 8px; border: 1px solid var(--border-md); border-radius: 2px; padding: 1px 5px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.kol-body { font-size: 11px; color: var(--muted); line-height: 1.65; margin-bottom: 9px; }
+.kol-narrative { display: flex; align-items: center; gap: 6px; padding-top: 8px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.kol-narrative-label { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.kol-narrative-value { font-size: 9px; color: var(--muted); }
+.kol-ripple { margin-left: auto; font-size: 9px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+.ripple-h    { color: var(--info); }
+.ripple-vh   { color: var(--green); }
+.ripple-hi   { color: var(--amber); }
+.ripple-alert { color: var(--red); }
+
+.comp-matrix { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 12px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.comp-matrix thead tr { background: var(--offset); }
+.comp-matrix thead th { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-md); font-family: 'IBM Plex Mono', monospace; }
+.comp-matrix tbody tr { border-bottom: 1px solid var(--border); }
+.comp-matrix tbody tr:last-child { border-bottom: none; }
+.comp-matrix tbody tr:nth-child(even) { background: var(--subtle); }
+.comp-matrix tbody tr.hl { background: var(--info-dim) !important; }
+.comp-matrix td { padding: 10px 14px; color: var(--muted); }
+.comp-matrix td:first-child { font-weight: 700; color: var(--text); }
+.chk { color: var(--green); font-weight: 700; }
+.crs { color: rgba(20,22,26,0.2); }
+
+.bottom-line {
+  background: var(--card); border: 1px solid var(--border-md);
+  border-left: 3px solid var(--text);
+  border-radius: 0 8px 8px 0; padding: 18px 22px; margin-top: 28px;
+}
+.bottom-line-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.bottom-line-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+.bottom-line-items { display: flex; flex-direction: column; gap: 12px; }
+.bottom-line-item { display: flex; gap: 12px; }
+.bl-num { font-size: 12px; font-weight: 700; color: var(--text); flex-shrink: 0; min-width: 22px; font-family: 'IBM Plex Mono', monospace; }
+.bl-text { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+.brief-footer {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 28px;
+  flex-wrap: wrap; gap: 10px;
+}
+.footer-sources { font-size: 9px; color: var(--muted); line-height: 1.6; font-family: 'IBM Plex Mono', monospace; }
+.footer-disc { font-size: 8px; color: rgba(90,94,98,0.6); text-align: right; max-width: 260px; line-height: 1.5; }
+
+/* ── SIGNAL VELOCITY VIEW ──────────────────── */
+#view-velocity { padding: 28px 32px 80px; max-width: 900px; margin: 0 auto; }
+
+.vel-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.vel-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.vel-subtitle { font-size: 12px; color: var(--muted); }
+
+.vel-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+.vel-stat { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 14px 16px; }
+.vel-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-family: 'IBM Plex Mono', monospace; }
+.vel-stat-value { font-size: 22px; font-weight: 800; color: var(--text); }
+.vel-stat-value.green { color: var(--green); }
+.vel-stat-value.amber { color: var(--amber); }
+.vel-stat-value.red   { color: var(--red); }
+
+.vel-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.vel-table thead tr { background: var(--offset); }
+.vel-table thead th { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-md); font-family: 'IBM Plex Mono', monospace; }
+.vel-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+.vel-table tbody tr:last-child { border-bottom: none; }
+.vel-table tbody tr:hover { background: var(--subtle); }
+.vel-table td { padding: 12px 14px; vertical-align: middle; }
+
+.vel-signal-name { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.vel-signal-cat  { font-size: 9px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.vel-mentions { font-size: 13px; font-weight: 700; color: var(--text); }
+.vel-mentions-sub { font-size: 9px; color: var(--muted); margin-top: 1px; font-family: 'IBM Plex Mono', monospace; }
+
+.vel-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.vel-bar-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; min-width: 80px; }
+.vel-bar-fill  { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+.vel-bar-fill.ink    { background: var(--text); }
+.vel-bar-fill.green  { background: var(--green); }
+.vel-bar-fill.amber  { background: var(--amber); }
+.vel-bar-fill.red    { background: var(--red); }
+.vel-bar-fill.info   { background: var(--info); }
+.vel-bar-pct { font-size: 11px; font-weight: 700; min-width: 46px; text-align: right; font-family: 'IBM Plex Mono', monospace; }
+.vel-bar-pct.ink    { color: var(--text); }
+.vel-bar-pct.green  { color: var(--green); }
+.vel-bar-pct.amber  { color: var(--amber); }
+.vel-bar-pct.red    { color: var(--red); }
+.vel-bar-pct.info   { color: var(--info); }
+
+.vel-vel { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.vel-vel-val { font-size: 13px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+.vel-vel-lbl { font-size: 9px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.vel-acc  { color: var(--green); }
+.vel-hot  { color: var(--red); }
+.vel-warm { color: var(--amber); }
+.vel-cool { color: var(--muted); }
+
+/* ── NARRATIVE MAP VIEW ────────────────────── */
+#view-narrative { padding: 28px 32px 80px; max-width: 900px; margin: 0 auto; }
+
+.narr-header { margin-bottom: 24px; }
+.narr-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.narr-subtitle { font-size: 12px; color: var(--muted); }
+
+.narr-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.narr-map-container {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; margin-bottom: 24px; overflow: hidden;
+}
+.narr-svg-wrap { width: 100%; overflow: visible; }
+
+.narr-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.narr-card { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 14px; }
+.narr-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.narr-card-name { font-size: 11px; font-weight: 700; color: var(--text); }
+.narr-badge { font-size: 8px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 6px; border-radius: 3px; font-family: 'IBM Plex Mono', monospace; }
+.nb-acc   { background: var(--green-dim); color: var(--green); }
+.nb-build { background: var(--info-dim);  color: var(--info); }
+.nb-watch { background: var(--amber-dim); color: var(--amber); }
+.nb-risk  { background: var(--red-dim);   color: var(--red); }
+.narr-card-body { font-size: 11px; color: var(--muted); line-height: 1.65; margin-bottom: 8px; }
+.narr-card-driver { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; font-family: 'IBM Plex Mono', monospace; }
+.narr-card-driver-val { font-size: 10px; color: var(--text); }
+
+/* ── OVERLAY ───────────────────────────────── */
+#overlay { position: fixed; inset: 0; background: rgba(20,22,26,0.35); z-index: 1000; display: none; align-items: center; justify-content: center; }
+#overlay.open { display: flex; }
+.overlay-panel {
+  background: var(--card); border: 1px solid var(--border-md);
+  border-top: 2px solid var(--text);
+  border-radius: 8px; padding: 24px 28px; max-width: 460px; width: 90%;
+  box-shadow: 0 24px 64px rgba(20,22,26,0.15);
+}
+.overlay-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace; }
+.overlay-heading { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+.overlay-subtext { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.overlay-buttons { display: flex; gap: 8px; }
+.btn-skip { background: none; border: 1px solid var(--border-md); border-radius: 5px; padding: 8px 16px; font-size: 12px; color: var(--muted); cursor: pointer; font-family: 'Manrope', sans-serif; }
+.btn-skip:hover { border-color: var(--text); color: var(--text); }
+.btn-save { background: var(--text); border: none; border-radius: 5px; padding: 8px 16px; font-size: 12px; color: var(--bg); cursor: pointer; font-weight: 700; font-family: 'Manrope', sans-serif; }
+.btn-save:hover { opacity: 0.88; }
+
+/* ── RESPONSIVE ────────────────────────────── */
+@media (max-width: 700px) {
+  #shell { grid-template-columns: 0px 1fr; }
+  #sidebar-toggle { display: none; }
+  #view-brief, #view-velocity, #view-narrative { padding: 18px 16px 60px; }
+  .kol-grid, .narr-cards { grid-template-columns: 1fr; }
+  .vel-stats { grid-template-columns: 1fr 1fr; }
+  .brief-headline { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div id="shell">
+
+<!-- TOPBAR -->
+<header id="topbar">
+  <div class="topbar-left">
+    <a style="display:flex;align-items:center;gap:8px;text-decoration:none" href="#">
+      <svg width="20" height="20" viewBox="0 0 100 90" fill="none">
+        <path d="M52 8 C60 22,74 36,78 54 C81 66,74 78,65 74 C56 70,54 58,48 48 C42 38,32 34,24 38 C16 42,15 56,22 66 C29 76,46 80,52 68" stroke="#14161A" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <circle cx="74" cy="22" r="10" fill="#14161A" opacity="0.4"/>
+      </svg>
+      <span class="topbar-wordmark">AURIVIAN · PULSE</span>
+    </a>
+    <div class="topbar-divider"></div>
+    <span class="ucb-chip">UCB</span>
+    <span class="azure-chip">&#9632;&nbsp;Azure Sovereign</span>
+    <span class="topbar-product" style="font-size:9px">Immunology &amp; Neurology</span>
+    <span class="topbar-date">Tue, June 10 2026</span>
+  </div>
+  <div class="topbar-right">
+    <button class="btn-persona" onclick="openPersona()">
+      <div class="persona-dot">?</div>Personalize
+    </button>
+  </div>
+</header>
+
+<!-- SIDEBAR TOGGLE -->
+<button id="sidebar-toggle" onclick="toggleSidebar()">&#8249;</button>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-section-label">MA Operations</div>
+    <div class="brief-card active" onclick="switchBrief(this, 'maimpact')">
+      <div class="new-dot"></div>
+      <div class="brief-card-title">MA Impact Gap — 31% vs 60% Target</div>
+      <div class="brief-card-meta">Jun 10 · 3 signals · MO2</div>
+    </div>
+    <div class="brief-card" onclick="switchBrief(this, 'zouboulis')">
+      <div class="new-dot"></div>
+      <div class="brief-card-title">Zouboulis Alignment Alert — 81→53</div>
+      <div class="brief-card-meta">Jun 9 · KOL divergence</div>
+    </div>
+    <div class="sidebar-rule"></div>
+    <div class="sidebar-section-label">Bimzelx</div>
+    <div class="brief-card" onclick="switchBrief(this, 'hsaccess')">
+      <div class="brief-card-title">HS Biologic Access — Payer Step Therapy</div>
+      <div class="brief-card-meta">Jun 8 · 4× recurring · AI2</div>
+    </div>
+    <div class="brief-card" onclick="switchBrief(this, 'il17diff')">
+      <div class="brief-card-title">IL-17A/F Community Derm Gap</div>
+      <div class="brief-card-meta">Jun 7 · 3 signals · AI3</div>
+    </div>
+    <div class="brief-card" onclick="switchBrief(this, 'eadvsov')">
+      <div class="brief-card-title">EADV 2025 SOV — 71% · Competitor Response</div>
+      <div class="brief-card-meta">Jun 6 · ARIA monitor</div>
+    </div>
+    <div class="sidebar-rule"></div>
+    <div class="sidebar-section-label">Pipeline</div>
+    <div class="brief-card" onclick="switchBrief(this, 'seizure')">
+      <div class="brief-card-title">Seizure KOL Window — 18 Months</div>
+      <div class="brief-card-meta">Jun 5 · MO5 Gap</div>
+    </div>
+    <div class="sidebar-rule"></div>
+    <div class="sidebar-section-label">Intelligence</div>
+    <div class="nav-item active" id="nav-brief" onclick="showView('brief', this)"><span class="nav-icon">&#8801;</span> Morning Brief</div>
+    <div class="nav-item" id="nav-velocity" onclick="showView('velocity', this)"><span class="nav-icon">&#8725;</span> Signal Velocity</div>
+    <div class="nav-item" id="nav-narrative" onclick="showView('narrative', this)"><span class="nav-icon">&#9678;</span> Narrative Map</div>
+    <div class="sidebar-rule"></div>
+    <div class="sidebar-section-label">Platform</div>
+    <a class="nav-item" href="https://aurivian-ucb-demo.vercel.app" target="_blank" rel="noopener noreferrer"><span class="nav-icon">&#9675;</span> Link to Aurivian</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- ══ VIEW: MORNING BRIEF ══════════════════ -->
+  <div id="view-brief" class="view active">
+
+  <!-- ─ Brief 1: MA Impact Gap (active) ─ -->
+  <div id="brief-maimpact" class="brief-content active" style="max-width:780px;margin:0 auto;padding:28px 36px 80px;">
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-urgent">VEGA Alert</span>
+      <span class="tag tag-info">MO2 · MA Impact</span>
+      <span class="eyebrow-date">June 10, 2026 &middot; 7:00 AM CET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      UCB Medical Affairs cannot yet quantify its <em>field contribution to outcomes</em>.
+      The data exists — the synthesis does not.
+    </h1>
+
+    <p class="brief-lede">VEGA analysis across six months of MSL interaction logs, internal stakeholder interviews, and KPI benchmarking shows that only 31% of captured field insights are converted to documented actions — against a 60% industry target. Three separate senior MA leaders have flagged this gap in the past 30 days. This is not a data problem. UCB's field systems are rich. It is a triage and attribution problem — and it is the primary reason VEGA's MO2 coverage score is rated Gap.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Conversion Rate</span><span class="meta-value red">31%</span></div>
+      <div class="meta-item"><span class="meta-label">Target</span><span class="meta-value">60%</span></div>
+      <div class="meta-item"><span class="meta-label">Gap</span><span class="meta-value warn">&#9650; 29 pts</span></div>
+      <div class="meta-item"><span class="meta-label">MO Coverage</span><span class="meta-value red">Gap</span></div>
+      <div class="meta-item"><span class="meta-label">Data Source</span><span class="meta-value dim">ucb-prod-azure · VEGA</span></div>
+    </div>
+
+    <div class="situation-room">
+      <div class="situation-label">&#9679; Situation Room &nbsp;&middot;&nbsp; 3 Signals Converging</div>
+      <p class="situation-body"><strong>The strategic picture:</strong> UCB's MA leadership tracks MSL activity volume — meetings, calls, events. They cannot yet connect that activity to scientific alignment shifts, insight generation velocity, or downstream prescribing behavior. The consequence is real: board-level ROI questions go unanswered, high-quality field intelligence sits inert, and the team cannot demonstrate its contribution to the Bimzelx story. <strong>VEGA is built to close this gap — but it needs a defined triage cadence and three instrumented outcome metrics to replace activity reporting with impact reporting.</strong></p>
+    </div>
+
+    <!-- S01 -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="section-number"><span class="section-num">01</span><span class="section-cat">VEGA · Internal Analysis</span></div>
+      <h2 class="section-h2">Only 31% of field insights reach a documented action. <em>The bottleneck is triage — not capture.</em></h2>
+      <div class="pills"><span class="pill pill-alert">&#8593; Gap Rating</span><span class="pill pill-watch">MO2 Coverage</span></div>
+      <p class="section-body">VEGA ROMI analysis of the last six months shows 69% of MSL-captured insights are not progressing to a defined action within 90 days. The field systems are functioning — insights are being captured in volume. The structural gap is routing: there is no systematic pathway that takes a recurring insight from capture to NOVA strategy-to-action review to an assigned owner. High-recurrence signals — those appearing in 3+ separate MSL reports — are the ones most likely to represent real clinical gaps, and they are accumulating without action.</p>
+      <div class="pull-quote">
+        <p class="pull-quote-text">"I can tell you how many MSL interactions we had this quarter. I cannot tell you what they changed."</p>
+        <span class="pull-quote-cite">— Head of Medical Affairs, UCB Immunology · Internal stakeholder interview · April 15, 2026</span>
+      </div>
+      <div class="pull-quote">
+        <p class="pull-quote-text">"Our board wants to see the return on the MA investment. We don't have a number we can stand behind right now."</p>
+        <span class="pull-quote-cite">— VP Medical Affairs, UCB North America · Internal stakeholder interview · April 22, 2026</span>
+      </div>
+      <div class="sources">
+        <a class="source-chip" href="#" onclick="return false">VEGA ROMI Analysis Q1–Q2 2026</a>
+        <a class="source-chip" href="#" onclick="return false">MA KPI Benchmarking Report 2026</a>
+        <a class="source-chip" href="#" onclick="return false">UCB MSL Interaction Logs</a>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">In your region, when an MSL captures a high-value insight, what is the current pathway for that insight to reach a decision-maker? Is there a defined triage step — or does it depend on individual follow-through?</p>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <!-- S02 -->
+    <div class="brief-section" style="animation-delay:0.10s">
+      <div class="section-number"><span class="section-num">02</span><span class="section-cat">VEGA · Benchmark · Industry</span></div>
+      <h2 class="section-h2">Only 23% of pharma MA organizations have a validated impact attribution model. <em>UCB has the data foundation to be in the top quartile.</em></h2>
+      <div class="pills"><span class="pill pill-new">Strategic Opportunity</span></div>
+      <p class="section-body">A 2026 benchmarking study across 34 pharma MA organizations found that only 23% have a validated model for attributing scientific exchange activity to measurable HCP behavior change. UCB sits in the majority — but its data infrastructure (MSL interaction logs, congress capture, publication monitoring) is richer than most. The gap is synthesis and instrumentation, not data collection. Deploying VEGA's MA impact dashboard for the next quarterly leadership review would put UCB in the top quartile without additional data investment.</p>
+      <div class="sources">
+        <a class="source-chip" href="#" onclick="return false">MA Benchmarking Study 2026 (n=34)</a>
+        <a class="source-chip" href="#" onclick="return false">MAPS 2026 Medical Affairs Excellence Report</a>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <!-- S03 -->
+    <div class="brief-section" style="animation-delay:0.15s">
+      <div class="section-number"><span class="section-num">03</span><span class="section-cat">NOVA · Recommended Actions</span></div>
+      <h2 class="section-h2">Three actions that close the MO2 gap before the next quarterly review.</h2>
+      <div class="pills"><span class="pill pill-hot">&#8593; Action Required</span></div>
+      <p class="section-body">NOVA has identified three concrete actions that together establish the MA impact framework. These are operational, not strategic — they do not require new data, new headcount, or a platform overhaul. They require structure.</p>
+
+      <table class="comp-matrix">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Owner</th>
+            <th>Due</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hl">
+            <td>Deploy VEGA MA impact dashboard for Q3 leadership review</td>
+            <td style="color:var(--muted);font-weight:400">MA Ops</td>
+            <td style="color:var(--muted);font-weight:400">Q3 2026</td>
+            <td><span class="chk">&#10003; Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>Define 3 outcome metrics: alignment velocity, insight conversion, exchange quality</td>
+            <td style="color:var(--muted);font-weight:400">MA Ops</td>
+            <td style="color:var(--muted);font-weight:400">Q3 2026</td>
+            <td style="color:var(--amber);font-weight:700">Changed</td>
+          </tr>
+          <tr>
+            <td>Establish weekly insight triage cadence — 10-day SLA for high-recurrence signals</td>
+            <td style="color:var(--muted);font-weight:400">MA Ops</td>
+            <td style="color:var(--muted);font-weight:400">Q2 2026</td>
+            <td><span class="chk">&#10003; Confirmed</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9660; Bottom Line</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text">The 31% insight-to-action rate is the number UCB leadership needs to see. It makes the problem concrete — and it makes VEGA's value concrete.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text">Aurivian is additive — it surfaces and routes intelligence that already exists in UCB's systems. It does not replace field teams; it amplifies their contribution.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text">Three outcome metrics, one triage cadence, one dashboard. That is the entire MO2 remediation plan. It is operational, not aspirational.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div class="footer-sources">Sources: VEGA ROMI Analysis (ucb-prod-azure) · Internal Stakeholder Interviews · MA Benchmarking Study 2026<br>Processed within UCB sovereign cloud boundary (Azure). No PHI included.</div>
+      <div class="footer-disc">Intelligence synthesized by Aurivian VEGA. Validated by field medical leadership. Not for external distribution.</div>
+    </div>
+  </div><!-- /brief-maimpact -->
+
+  <!-- ─ Brief 2: Zouboulis Alert ─ -->
+  <div id="brief-zouboulis" class="brief-content" style="max-width:780px;margin:0 auto;padding:28px 36px 80px;">
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-urgent">LUCA Alert</span>
+      <span class="tag" style="background:var(--emg-dim);border:1px solid rgba(139,124,240,0.3);color:var(--emerging)">KOL Divergence</span>
+      <span class="eyebrow-date">June 9, 2026 &middot; 8:30 AM CET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      Zouboulis alignment score dropped 81→53 in 60 days.
+      <em>Competitor co-authorship detected — last UCB contact: 8 weeks ago.</em>
+    </h1>
+
+    <p class="brief-lede">LUCA detected a 28-point alignment score drop for Prof. Christos Zouboulis (Dessau Medical Center, Germany) over the past 60 days. A recent EADV abstract co-authored with Novartis is the primary driver of the public narrative shift. Private MSL interactions remain positive on Bimzelx's HS mechanism. The divergence window is open — but it closes if UCB does not re-engage before the EADV 2025 data presentations.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Alignment Score</span><span class="meta-value red">53 <span style="font-size:10px;font-weight:400;color:var(--muted)">was 81</span></span></div>
+      <div class="meta-item"><span class="meta-label">Last UCB Contact</span><span class="meta-value warn">8 weeks</span></div>
+      <div class="meta-item"><span class="meta-label">Tier</span><span class="meta-value dim">Tier 1 · HS Global KOL</span></div>
+      <div class="meta-item"><span class="meta-label">Competitor Signal</span><span class="meta-value red">Novartis co-author</span></div>
+    </div>
+
+    <div class="situation-room">
+      <div class="situation-label">&#9679; Situation Room &nbsp;&middot;&nbsp; Divergence KOL</div>
+      <p class="situation-body"><strong>The divergence pattern:</strong> Zouboulis's public narrative has shifted — a Novartis-affiliated EADV abstract has given him a visible European HS platform that UCB is not part of. His private engagement record with UCB MSLs remains positive. This is a classic KOL divergence: the private science relationship is intact, but the public positioning is drifting toward a competitor's platform. <strong>The intervention window is the EADV 2025 data presentations. A structured scientific exchange with Bimzelx's IL-17F mechanism data package — before that event — is the highest-priority KOL action this week.</strong></p>
+    </div>
+
+    <!-- S01 -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="section-number"><span class="section-num">01</span><span class="section-cat">LUCA · KOL Intelligence</span></div>
+      <h2 class="section-h2">The Novartis EADV abstract gives Zouboulis a European HS platform — and UCB is not in it.</h2>
+      <div class="pills"><span class="pill pill-alert">&#8595; Score Declining</span><span class="pill pill-hot">8-Week Gap</span></div>
+      <p class="section-body">Zouboulis is the primary European author on HS inflammation pathways and has co-chaired EADV HS consensus panels for five years. The new Novartis co-authored abstract positions Cosentyx in the HS biologic sequencing discussion — territory UCB has owned. His private UCB sentiment remains favorable on Bimzelx's IL-17F biologic durability evidence. The gap is scientific exchange frequency, not scientific conviction. Zouboulis has not been briefed on the latest Bimzelx HS long-term outcome data.</p>
+      <div class="kol-grid">
+        <div class="kol-card">
+          <div class="kol-header">
+            <div class="kol-avatar av-amber">CZ</div>
+            <div>
+              <div class="kol-name">Christos Zouboulis</div>
+              <div class="kol-title">Dessau Medical Center / Brandenburg Medical School<br>Chair, EADV HS Consensus Panel</div>
+              <div class="kol-platforms"><span class="kol-platform">EADV</span><span class="kol-platform">IHS</span><span class="kol-platform">PubMed (215 pubs)</span></div>
+            </div>
+          </div>
+          <p class="kol-body">European HS mechanism leader. Foundational IL-17 inflammation pathway publications directly support Bimzelx's HS dual-inhibition narrative. Engagement gap: last UCB interaction 8 weeks ago. Competitor co-authorship (Novartis) detected in EADV 2025 abstract submission.</p>
+          <div class="kol-narrative">
+            <span class="kol-narrative-label">Narrative</span>
+            <span class="kol-narrative-value">Drifting — public platform aligning to competitor</span>
+            <span class="kol-ripple ripple-hi">&#9650; Diverging</span>
+          </div>
+        </div>
+        <div class="kol-card">
+          <div class="kol-header">
+            <div class="kol-avatar av-green">GJ</div>
+            <div>
+              <div class="kol-name">Gregor Jemec</div>
+              <div class="kol-title">University of Copenhagen / Zealand University Hospital<br>HS Scoring Systems Author</div>
+              <div class="kol-platforms"><span class="kol-platform">EADV</span><span class="kol-platform">IHS</span><span class="kol-platform">PubMed (230 pubs)</span></div>
+            </div>
+          </div>
+          <p class="kol-body">Global HS anchor KOL. Primary author on IHS4 scoring system and biologic guidelines. Aligned and active — 3 MSL interactions in the last quarter. Advisory board anchor for Bimzelx HS RWE programme. Influence score 9.3.</p>
+          <div class="kol-narrative">
+            <span class="kol-narrative-label">Narrative</span>
+            <span class="kol-narrative-value">Strongly aligned — active advisory role</span>
+            <span class="kol-ripple ripple-vh">&#9679; Aligned</span>
+          </div>
+        </div>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Has the German MSL team had any informal contact with Zouboulis since the EADV abstract submission? Is the Novartis engagement a new relationship or an existing advisory board role that's becoming more active?</p>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <div class="brief-section" style="animation-delay:0.10s">
+      <div class="section-number"><span class="section-num">02</span><span class="section-cat">LUCA · Recommended Action</span></div>
+      <h2 class="section-h2">Re-engage before EADV 2025. The data package is ready — the conversation just needs to happen.</h2>
+      <div class="pills"><span class="pill pill-alert">Time-Sensitive</span></div>
+      <p class="section-body">LUCA's recommended intervention is a structured scientific exchange with Zouboulis before the EADV 2025 data presentations, using the Bimzelx IL-17F biologic durability evidence package as the anchor. The goal is not to challenge the Novartis relationship — it is to re-establish UCB's scientific presence in his European HS narrative before the EADV platform sets the public record. One high-quality scientific exchange with long-term HS outcome data is the highest-leverage action available this week.</p>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9660; Bottom Line</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text">Zouboulis is diverging — not lost. The private UCB relationship is intact. One scientific exchange before EADV closes the gap.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text">Jemec remains the HS anchor. His advisory board role and active engagement make him the right voice to anchor Bimzelx's EADV 2025 presence.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text">LUCA monitors alignment velocity continuously. The 8-week gap triggered this alert — avoid recurrence with a quarterly minimum-contact floor for Tier 1 HS KOLs.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div class="footer-sources">Sources: LUCA alignment analysis · EADV abstract database · UCB MSL interaction log (ucb-prod-azure)<br>KOL alignment scores are composite indices — public narrative, publication patterns, congress presence, private sentiment.</div>
+      <div class="footer-disc">Intelligence synthesized by Aurivian LUCA. Not for external distribution.</div>
+    </div>
+  </div><!-- /brief-zouboulis -->
+
+  <!-- ─ Brief 3: HS Access / Payer Barrier ─ -->
+  <div id="brief-hsaccess" class="brief-content" style="max-width:780px;margin:0 auto;padding:28px 36px 80px;">
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-urgent">4× Recurring</span>
+      <span class="tag" style="background:var(--red-dim);border:1px solid rgba(220,74,65,0.3);color:var(--red)">Bimzelx · HS</span>
+      <span class="eyebrow-date">June 8, 2026 &middot; 9:00 AM ET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      Biologic-naïve HS patients are waiting 4–6 months for Bimzelx
+      because <em>payer step therapy was written before the current data existed.</em>
+    </h1>
+
+    <p class="brief-lede">Four separate MSL field reports — from Chicago, London, Munich, and Brussels — describe the same pattern: dermatologists have biologic-naïve HS patients who are appropriate candidates for Bimzelx today, but payer step-therapy requirements mandate documented TNF-alpha failure first. The delay is 4–6 months. The clinical consequence is avoidable disease progression. No UCB prior-auth support materials exist for field use.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Recurrence</span><span class="meta-value red">4×</span></div>
+      <div class="meta-item"><span class="meta-label">Average Delay</span><span class="meta-value warn">4–6 months</span></div>
+      <div class="meta-item"><span class="meta-label">Field Materials</span><span class="meta-value red">None</span></div>
+      <div class="meta-item"><span class="meta-label">MO</span><span class="meta-value dim">MO1 · HS Scientific Leadership</span></div>
+    </div>
+
+    <div class="situation-room">
+      <div class="situation-label">&#9679; Situation Room &nbsp;&middot;&nbsp; Structural Access Barrier</div>
+      <p class="situation-body"><strong>The access picture:</strong> Payer step-therapy requirements for Bimzelx in biologic-naïve HS were written before the current efficacy and safety data existed. They reflect the older TNF-alpha-first paradigm — not the IL-17 era guidelines now endorsed by EADV and IHS. Dermatologists understand Bimzelx's profile. The barrier is not clinical conviction — it is administrative. <strong>The immediate opportunity is a payer-facing prior-auth support one-pager that leverages the current biologic-naïve HS data to challenge the step-therapy language directly.</strong></p>
+    </div>
+
+    <!-- S01 -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="section-number"><span class="section-num">01</span><span class="section-cat">Field Signal · 4 MSL Reports</span></div>
+      <h2 class="section-h2">Dermatologists have appropriate patients. The payer criteria are the only obstacle.</h2>
+      <div class="pills"><span class="pill pill-alert">4× Recurring</span><span class="pill pill-watch">US + EU5</span></div>
+      <p class="section-body">The step-therapy barrier is consistent across geographies and practice settings. It is not a prescriber hesitation issue — these dermatologists have already decided Bimzelx is right for their patients. The barrier is a P&T committee document that needs to be challenged with updated evidence. Three of the four reporting MSLs specifically requested a one-page summary for payer conversations.</p>
+      <div class="pull-quote">
+        <p class="pull-quote-text">"I have patients who are clearly Bimzelx candidates. My hands are tied until they fail on adalimumab. That takes months and their disease gets worse."</p>
+        <span class="pull-quote-cite">— Community dermatologist, Chicago IL · MSL field report · May 3, 2026</span>
+      </div>
+      <div class="pull-quote">
+        <p class="pull-quote-text">"The step therapy language in the payer criteria was written before the current Bimzelx HS data existed. It needs to be challenged with updated evidence."</p>
+        <span class="pull-quote-cite">— Academic dermatologist, HS specialist · Ad board summary · London UK · April 14, 2026</span>
+      </div>
+      <div class="sources">
+        <a class="source-chip" href="#" onclick="return false">MSL Field Reports x4 (Apr–May 2026)</a>
+        <a class="source-chip" href="#" onclick="return false">EADV HS Guidelines 2025</a>
+        <a class="source-chip" href="#" onclick="return false">IHS Biologic Sequencing Consensus</a>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Which payers / formularies are MSLs encountering most frequently for this barrier? US commercial vs. European national health systems will require different one-pager framing — which market is most urgent?</p>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9660; Bottom Line</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text">Develop a prior-auth support one-pager for biologic-naïve HS. EADV and IHS guidelines now support earlier biologic use — the clinical evidence is there; the payer materials are not.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text">Commission a payer landscape analysis on HS step therapy requirements across US and EU5. The four signals are consistent — this is a systemic barrier, not an isolated formulary issue.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text">This is a field medical win that is being left on the table. Every month this barrier persists is a patient who progresses unnecessarily and a prescriber who loses confidence in Bimzelx access.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div class="footer-sources">Sources: MSL interaction log (ucb-prod-azure) · EADV HS Guidelines 2025 · IHS Biologic Sequencing Consensus · Ad board summaries</div>
+      <div class="footer-disc">Intelligence synthesized by Aurivian NOVA. Not for external distribution.</div>
+    </div>
+  </div><!-- /brief-hsaccess -->
+
+  <!-- ─ Brief 4: IL-17A/F Community Derm Gap ─ -->
+  <div id="brief-il17diff" class="brief-content" style="max-width:780px;margin:0 auto;padding:28px 36px 80px;">
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-caution">Mechanism Gap</span>
+      <span class="tag" style="background:var(--info-dim);border:1px solid rgba(59,130,246,0.3);color:var(--info)">Bimzelx · PsO · PsA</span>
+      <span class="eyebrow-date">June 7, 2026 &middot; 9:00 AM ET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      Academic dermatologists understand the dual IL-17A+F story.
+      <em>Community dermatologists don't yet translate it to prescribing.</em>
+    </h1>
+
+    <p class="brief-lede">NOVA detected a consistent pattern across three MSL reports and one congress debrief: academic and KOL-tier dermatologists can articulate Bimzelx's dual IL-17A/F inhibition rationale clearly. Community dermatologists who see the majority of PsO and PsA patients cannot yet translate the mechanism into a prescribing preference — and competitor real-world data is filling the gap that Bimzelx mechanism content hasn't reached.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Recurrence</span><span class="meta-value warn">3×</span></div>
+      <div class="meta-item"><span class="meta-label">MO Coverage</span><span class="meta-value warn">Low</span></div>
+      <div class="meta-item"><span class="meta-label">Audience Gap</span><span class="meta-value dim">Community derm / rheum</span></div>
+      <div class="meta-item"><span class="meta-label">Competitor Risk</span><span class="meta-value warn">Cosentyx RWE filling gap</span></div>
+    </div>
+
+    <div class="situation-room">
+      <div class="situation-label">&#9679; Situation Room &nbsp;&middot;&nbsp; Mechanism Translation Gap</div>
+      <p class="situation-body"><strong>The gap:</strong> The academic narrative on IL-17F is solid. KOLs like Schett, McInnes, and Ghoreschi anchor the mechanistic science. The gap is the last mile — the mid-volume community prescribers who see 80% of PsO and PsA patients have not seen a case-based articulation of what dual IL-17A+F inhibition means for their patients. Competitor-sponsored real-world registries are stepping into this space. <strong>Patient-case-led differentiation materials for community dermatologists are the highest-impact gap-fill for MO4.</strong></p>
+    </div>
+
+    <!-- S01 -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="section-number"><span class="section-num">01</span><span class="section-cat">NOVA · MSL Signal · AAD + Field</span></div>
+      <h2 class="section-h2">Community prescribers need a clinical case to reach for Bimzelx — not a mechanism lecture.</h2>
+      <div class="pills"><span class="pill pill-watch">Mechanism Gap</span><span class="pill pill-hot">Competitor Fill Risk</span></div>
+      <p class="section-body">The mechanism talk is compelling at congresses. It does not reach community prescribers. The physicians who are most underserved by current Bimzelx scientific exchange content are mid-volume dermatologists who see 15–30 PsO and PsA patients per week — the prescribers with the most Bimzelx volume potential. They need patient-case-led content: what does dual IL-17A/F look like for a patient who hasn't fully responded to Cosentyx? A concrete clinical scenario converts the mechanism into a prescribing decision.</p>
+      <div class="pull-quote">
+        <p class="pull-quote-text">"I know the IL-17F story in theory. I don't have a patient case that makes me reach for it over something I already know."</p>
+        <span class="pull-quote-cite">— Community dermatologist, Phoenix AZ · MSL interaction · April 8, 2026</span>
+      </div>
+      <div class="pull-quote">
+        <p class="pull-quote-text">"The mechanism talk was compelling. I just need to know what it means for my patients who haven't responded fully to Cosentyx."</p>
+        <span class="pull-quote-cite">— Community dermatologist · AAD 2025 congress debrief · March 9, 2026</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">In your territory, what is the most common Bimzelx conversation trigger in community dermatology — a mechanism question, a patient who failed Cosentyx/Taltz, or a formulary availability question? The answer shapes which case-based material format will land hardest.</p>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9660; Bottom Line</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text">Commission patient-case-led IL-17A/F differentiation materials for community dermatologists — specifically for the Cosentyx/Taltz partial-responder population.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text">The KOL-to-community transmission gap is structural. Schett, McInnes, and Ghoreschi anchor the science. The field materials need to operationalize it at the community level.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text">Competitor RWE registries are accumulating community prescriber data. Bimzelx needs real-world co-publication with KOLs like Leonardi to counter this before MO4 coverage drops further.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div class="footer-sources">Sources: MSL interaction log · AAD 2025 congress debrief · NOVA signal velocity analysis (ucb-prod-azure)</div>
+      <div class="footer-disc">Intelligence synthesized by Aurivian NOVA. Not for external distribution.</div>
+    </div>
+  </div><!-- /brief-il17diff -->
+
+  <!-- ─ Brief 5: EADV SOV ─ -->
+  <div id="brief-eadvsov" class="brief-content" style="max-width:780px;margin:0 auto;padding:28px 36px 80px;">
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-new">ARIA Signal</span>
+      <span class="tag" style="background:var(--green-dim);border:1px solid rgba(63,165,106,0.3);color:var(--green)">Bimzelx · EADV 2025</span>
+      <span class="eyebrow-date">June 6, 2026 &middot; 8:00 AM CET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      Bimzelx hit 71% HS share of voice at EADV 2025.
+      <em>AbbVie and Novartis submitted late-breaking data — expect a response.</em>
+    </h1>
+
+    <p class="brief-lede">ARIA's congress monitoring shows Bimzelx dominated HS sessions at EADV 2025 with 71% share of voice in IL-17 biologic discussions. AbbVie (Skyrizi) and Novartis (Cosentyx) both submitted late-breaking HS abstracts. Competitor MSL teams were observed at four Bimzelx-affiliated poster presentations. A coordinated counter-messaging response from at least one competitor is anticipated before AAD 2026.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Bimzelx HS SOV</span><span class="meta-value green">71%</span></div>
+      <div class="meta-item"><span class="meta-label">Competitor Abstracts</span><span class="meta-value warn">AbbVie + Novartis</span></div>
+      <div class="meta-item"><span class="meta-label">Next Congress</span><span class="meta-value dim">AAD 2026 · Feb</span></div>
+      <div class="meta-item"><span class="meta-label">Counter-Msg Risk</span><span class="meta-value warn">&#9650; Rising</span></div>
+    </div>
+
+    <div class="situation-room">
+      <div class="situation-label">&#9679; Situation Room &nbsp;&middot;&nbsp; EADV 2025 Debrief</div>
+      <p class="situation-body"><strong>The EADV picture:</strong> UCB's EADV 2025 performance was strong. 71% SOV in HS biologic conversations is a defensible dominant position. The risk is that competitors read the same data and respond. AbbVie's late-breaking HS abstract and Novartis's Zouboulis co-authorship are both read as early-stage counter-moves. <strong>Sustaining the EADV lead into AAD 2026 requires: a Bimzelx HS long-term durability data package, re-engagement with the Zouboulis divergence, and preemptive briefing of the 5 HS KOLs who attended competitor satellite events.</strong></p>
+    </div>
+
+    <!-- S01 -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="section-number"><span class="section-num">01</span><span class="section-cat">ARIA · Congress Intelligence</span></div>
+      <h2 class="section-h2">5 HS KOLs attended competitor satellite events at EADV 2025. <em>Monitor for narrative shifts before AAD 2026.</em></h2>
+      <div class="pills"><span class="pill pill-watch">Competitor Monitor</span><span class="pill pill-hot">Pre-AAD Window</span></div>
+      <p class="section-body">ARIA identified five HS KOLs (Tier 1 and 2) who attended both Bimzelx-affiliated and competitor satellite events at EADV 2025. These KOLs are in an active scientific evaluation phase — their narrative is not set. The pre-AAD 2026 window (now through January) is the engagement opportunity. UCB MSL teams should proactively offer long-term HS durability data and real-world outcome evidence before competitor teams secure advisory board commitments.</p>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Which of the 5 KOLs had the most substantive interactions at the competitor satellite events — and which are in regions with active AbbVie or Novartis MSL coverage? Prioritize re-engagement based on competitive intensity.</p>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9660; Bottom Line</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text">71% SOV is the headline. Protect it. The EADV win is only durable if the narrative is reinforced in the 8 months between EADV and AAD 2026.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text">AbbVie and Novartis are moving in HS. Their late-breaking abstracts signal intent. Expect organized counter-messaging before AAD 2026 — prepare field teams now.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text">The Zouboulis divergence (Brief 2) and the EADV SOV signal are connected. Closing the Zouboulis gap also closes the most visible European HS KOL vulnerability before AAD 2026.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div class="footer-sources">Sources: ARIA congress monitoring · EADV 2025 abstract database · Social listening (X/LinkedIn) · MSL observation log (ucb-prod-azure)</div>
+      <div class="footer-disc">Intelligence synthesized by Aurivian ARIA. Not for external distribution.</div>
+    </div>
+  </div><!-- /brief-eadvsov -->
+
+  <!-- ─ Brief 6: Seizure Pipeline KOL Window ─ -->
+  <div id="brief-seizure" class="brief-content" style="max-width:780px;margin:0 auto;padding:28px 36px 80px;">
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-emerging">Pipeline · Pre-Launch</span>
+      <span class="tag" style="background:var(--emg-dim);border:1px solid rgba(139,124,240,0.3);color:var(--emerging)">MO5 Gap · Neurology</span>
+      <span class="eyebrow-date">June 5, 2026 &middot; 8:00 AM ET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      The seizure pipeline has an <em>18-month window</em> to build its KOL foundation
+      before data readouts make engagement critical.
+    </h1>
+
+    <p class="brief-lede">NOVA's publication analysis identified 14 epileptologists with 20+ publications on acute seizure rescue who are not currently on the UCB neurology engagement list. Three of these KOLs gave plenary or symposium presentations at AES 2025 — with no UCB MSL interaction recorded at the same event. MO5 (neurology KOL mapping) is rated Gap. The 18-month window before pipeline data readouts is the highest-leverage pre-competitive moment available.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">KOL Candidates</span><span class="meta-value">14</span></div>
+      <div class="meta-item"><span class="meta-label">Currently Engaged</span><span class="meta-value red">0</span></div>
+      <div class="meta-item"><span class="meta-label">AES 2025 Speakers</span><span class="meta-value warn">3 (unengaged)</span></div>
+      <div class="meta-item"><span class="meta-label">MO5 Coverage</span><span class="meta-value red">Gap</span></div>
+    </div>
+
+    <div class="situation-room">
+      <div class="situation-label">&#9679; Situation Room &nbsp;&middot;&nbsp; Pipeline Pre-Launch Window</div>
+      <p class="situation-body"><strong>The pipeline picture:</strong> The UCB seizure pipeline programme (REST paradigm, ~2027 data readouts) currently has no tier structure for neurology/epileptology KOLs, no congress tracking, and no scientific sentiment baseline. UCB's existing Dravet syndrome KOL roster (Helbig, Nabbout, Sullivan, Moshé) represents a strong foundation — but the broader seizure rescue landscape KOLs are unmapped. <strong>Relationships built before data readouts are categorically more durable than those built after — competitors cannot establish equivalent relationships retroactively. Every month of inaction narrows the window.</strong></p>
+    </div>
+
+    <!-- S01 -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="section-number"><span class="section-num">01</span><span class="section-cat">NOVA · Publication Analysis</span></div>
+      <h2 class="section-h2">14 acute seizure rescue epileptologists are publishing actively — none are on the UCB engagement list.</h2>
+      <div class="pills"><span class="pill pill-emg">Pipeline Priority</span><span class="pill pill-watch">18-Month Window</span></div>
+      <p class="section-body">NOVA's analysis of PubMed publication activity (2023–2026) and AES 2025 speaker records identified 14 epileptologists as high-priority pipeline KOL candidates. Criteria: ≥20 publications on acute seizure rescue or related mechanisms, active congress presence in the last 18 months, no current competitor advisory board relationship. Three gave AES 2025 plenary or symposium presentations on seizure pharmacology — a direct overlap with the REST paradigm. None have been approached by UCB for scientific exchange.</p>
+      <div class="sources">
+        <a class="source-chip" href="#" onclick="return false">PubMed Seizure Rescue Analysis (NOVA)</a>
+        <a class="source-chip" href="#" onclick="return false">AES 2025 Speaker Programme</a>
+        <a class="source-chip" href="#" onclick="return false">ILAE 2025 Abstract Database</a>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Does UCB's neurology MSL team have existing relationships with any of the 14 identified KOLs through other disease areas (e.g., other epilepsy products)? Pre-existing relationships reduce the outreach barrier significantly.</p>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <div class="brief-section" style="animation-delay:0.10s">
+      <div class="section-number"><span class="section-num">02</span><span class="section-cat">NOVA · KOL Landscape</span></div>
+      <h2 class="section-h2">UCB's Dravet KOL roster is a strong foundation — but seizure rescue is a broader landscape.</h2>
+      <div class="pills"><span class="pill pill-new">Foundation Present</span><span class="pill pill-emg">Gap: Rescue Landscape</span></div>
+      <div class="kol-grid">
+        <div class="kol-card">
+          <div class="kol-header">
+            <div class="kol-avatar av-ink">IH</div>
+            <div>
+              <div class="kol-name">Ingo Helbig</div>
+              <div class="kol-title">Children's Hospital of Philadelphia / UPenn<br>SCN1A · Dravet Genetics</div>
+              <div class="kol-platforms"><span class="kol-platform">AES 2025</span><span class="kol-platform">ILAE 2025</span><span class="kol-platform">PubMed (165 pubs)</span></div>
+            </div>
+          </div>
+          <p class="kol-body">Global Dravet syndrome leader. SCN1A genetics expertise anchors UCB pipeline scientific credibility. 4 MSL interactions in the last quarter. Strong foundation for REST paradigm scientific exchange.</p>
+          <div class="kol-narrative">
+            <span class="kol-narrative-label">Narrative</span>
+            <span class="kol-narrative-value">Actively engaged — Dravet genetics anchor</span>
+            <span class="kol-ripple ripple-vh">&#9679; Aligned</span>
+          </div>
+        </div>
+        <div class="kol-card">
+          <div class="kol-header">
+            <div class="kol-avatar av-emg">SM</div>
+            <div>
+              <div class="kol-name">Solomon Moshé</div>
+              <div class="kol-title">Montefiore / Albert Einstein College of Medicine<br>Seizure Mechanisms · Focal Epilepsy</div>
+              <div class="kol-platforms"><span class="kol-platform">AES 2025</span><span class="kol-platform">ILAE 2025</span><span class="kol-platform">PubMed (280 pubs)</span></div>
+            </div>
+          </div>
+          <p class="kol-body">Broad epilepsy science anchor — foundational seizure mechanism expertise directly relevant to REST paradigm positioning. Low recent engagement (2 interactions). Re-engage with pipeline science brief.</p>
+          <div class="kol-narrative">
+            <span class="kol-narrative-label">Narrative</span>
+            <span class="kol-narrative-value">Low engagement — re-engagement priority</span>
+            <span class="kol-ripple ripple-hi">&#9675; Dormant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9660; Bottom Line</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text">Build a tiered neurology KOL list for the seizure pipeline now: 14 identified candidates need outreach plans, structured by AES 2025 speaker status and publication recency.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text">Create a REST paradigm scientific briefing package for epileptologists. The gap is not data — it's the LP framework and structured MSL conversation guide for acute seizure rescue.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text">Re-engage Solomon Moshé with a pipeline science brief. His seizure mechanism publication record maps directly to REST paradigm science — low engagement is a missed credibility anchor.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div class="footer-sources">Sources: PubMed publication analysis (NOVA) · AES 2025 speaker programme · ILAE 2025 abstract database · UCB MSL engagement log (ucb-prod-azure)</div>
+      <div class="footer-disc">Intelligence synthesized by Aurivian NOVA. Not for external distribution.</div>
+    </div>
+  </div><!-- /brief-seizure -->
+
+  </div><!-- /view-brief -->
+
+  <!-- ══ VIEW: SIGNAL VELOCITY ════════════════ -->
+  <div id="view-velocity" class="view">
+    <div class="vel-header">
+      <div>
+        <div class="vel-title">Signal Velocity</div>
+        <div class="vel-subtitle">KIT momentum across the UCB Immunology &amp; Neurology portfolio · June 10, 2026 · ucb-prod-azure</div>
+      </div>
+    </div>
+
+    <div class="vel-stats">
+      <div class="vel-stat">
+        <div class="vel-stat-label">Signals Tracked</div>
+        <div class="vel-stat-value">38</div>
+      </div>
+      <div class="vel-stat">
+        <div class="vel-stat-label">Accelerating</div>
+        <div class="vel-stat-value green">3</div>
+      </div>
+      <div class="vel-stat">
+        <div class="vel-stat-label">Hot / Urgent</div>
+        <div class="vel-stat-value red">2</div>
+      </div>
+      <div class="vel-stat">
+        <div class="vel-stat-label">Avg Velocity</div>
+        <div class="vel-stat-value amber">+53%</div>
+      </div>
+    </div>
+
+    <table class="vel-table">
+      <thead>
+        <tr>
+          <th>Signal / KIT</th>
+          <th>Sources</th>
+          <th>30-Day Share</th>
+          <th>Velocity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="vel-signal-name">HS Real-World Evidence Surge</div>
+            <div class="vel-signal-cat">NOVA · MSL + Publication + Social</div>
+          </td>
+          <td><div class="vel-mentions">214</div><div class="vel-mentions-sub">+97% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill red" style="width:92%"></div></div>
+              <span class="vel-bar-pct red">92%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-hot">+97%</span>
+              <span class="vel-vel-lbl">Hot</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">MA Impact Accountability Demand</div>
+            <div class="vel-signal-cat">VEGA · Stakeholder + KPI Benchmarking</div>
+          </td>
+          <td><div class="vel-mentions">87</div><div class="vel-mentions-sub">+44% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill amber" style="width:71%"></div></div>
+              <span class="vel-bar-pct amber">71%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-warm">+44%</span>
+              <span class="vel-vel-lbl">Accelerating</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">IL-17A/F Mechanism Interest (Community)</div>
+            <div class="vel-signal-cat">NOVA · MSL + Congress Debrief</div>
+          </td>
+          <td><div class="vel-mentions">156</div><div class="vel-mentions-sub">+55% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill green" style="width:79%"></div></div>
+              <span class="vel-bar-pct green">79%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-acc">+55%</span>
+              <span class="vel-vel-lbl">Accelerating</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">HS Biologic Access / Prior Auth Barriers</div>
+            <div class="vel-signal-cat">NOVA · Social + MSL + Patient Advocacy</div>
+          </td>
+          <td><div class="vel-mentions">103</div><div class="vel-mentions-sub">+38% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill amber" style="width:63%"></div></div>
+              <span class="vel-bar-pct amber">63%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-warm">+38%</span>
+              <span class="vel-vel-lbl">Rising</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">KOL Alignment Velocity — HS Portfolio</div>
+            <div class="vel-signal-cat">LUCA · Sentiment + Co-authorship Monitor</div>
+          </td>
+          <td><div class="vel-mentions">61</div><div class="vel-mentions-sub">−12% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill red" style="width:48%"></div></div>
+              <span class="vel-bar-pct red">48%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-hot">−12%</span>
+              <span class="vel-vel-lbl">Declining</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">REST Paradigm / Seizure Pipeline Awareness</div>
+            <div class="vel-signal-cat">NOVA · PubMed + AES Congress</div>
+          </td>
+          <td><div class="vel-mentions">44</div><div class="vel-mentions-sub">+31% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill info" style="width:42%"></div></div>
+              <span class="vel-bar-pct info">42%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-acc">+31%</span>
+              <span class="vel-vel-lbl">Emerging</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">Biologic Sequencing: HS Biologic-Experienced</div>
+            <div class="vel-signal-cat">NOVA · Publication + MSL</div>
+          </td>
+          <td><div class="vel-mentions">78</div><div class="vel-mentions-sub">+22% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill green" style="width:58%"></div></div>
+              <span class="vel-bar-pct green">58%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-acc">+22%</span>
+              <span class="vel-vel-lbl">Growing</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="vel-signal-name">Digital KOL Influence: IL-17 Derm/Rheum</div>
+            <div class="vel-signal-cat">LUCA · X / LinkedIn Monitor</div>
+          </td>
+          <td><div class="vel-mentions">52</div><div class="vel-mentions-sub">+18% vs prior 30d</div></td>
+          <td>
+            <div class="vel-bar-wrap">
+              <div class="vel-bar-track"><div class="vel-bar-fill info" style="width:37%"></div></div>
+              <span class="vel-bar-pct info">37%</span>
+            </div>
+          </td>
+          <td>
+            <div class="vel-vel">
+              <span class="vel-vel-val vel-acc">+18%</span>
+              <span class="vel-vel-lbl">Building</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- /view-velocity -->
+
+  <!-- ══ VIEW: NARRATIVE MAP ══════════════════ -->
+  <div id="view-narrative" class="view">
+    <div class="narr-header">
+      <div class="narr-title">Narrative Map</div>
+      <div class="narr-subtitle">Strategic narrative landscape for UCB Immunology &amp; Neurology · June 10, 2026</div>
+    </div>
+
+    <div class="narr-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Accelerating</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--info)"></div>Building</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Watch</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>At Risk</div>
+    </div>
+
+    <div class="narr-map-container">
+      <svg class="narr-svg-wrap" viewBox="0 0 700 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Connection lines -->
+        <line x1="175" y1="80" x2="350" y2="160" stroke="rgba(20,22,26,0.08)" stroke-width="1.5"/>
+        <line x1="175" y1="240" x2="350" y2="160" stroke="rgba(20,22,26,0.08)" stroke-width="1.5"/>
+        <line x1="525" y1="80" x2="350" y2="160" stroke="rgba(220,74,65,0.15)" stroke-width="1.5"/>
+        <line x1="525" y1="240" x2="350" y2="160" stroke="rgba(20,22,26,0.08)" stroke-width="1.5"/>
+        <!-- Center: MA Impact Gap -->
+        <circle cx="350" cy="160" r="38" fill="rgba(220,74,65,0.08)" stroke="#DC4A41" stroke-width="1.5"/>
+        <text x="350" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="700" fill="#DC4A41">MA IMPACT</text>
+        <text x="350" y="168" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="700" fill="#DC4A41">GAP · MO2</text>
+        <!-- TL: Bimzelx HS -->
+        <circle cx="175" cy="80" r="32" fill="rgba(63,165,106,0.08)" stroke="#3FA56A" stroke-width="1.5"/>
+        <text x="175" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#3FA56A">BIMZELX</text>
+        <text x="175" y="87" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#3FA56A">HS LEADER</text>
+        <!-- BL: Payer Barrier -->
+        <circle cx="175" cy="240" r="30" fill="rgba(224,161,46,0.08)" stroke="#E0A12E" stroke-width="1.5"/>
+        <text x="175" y="235" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#E0A12E">PAYER</text>
+        <text x="175" y="248" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#E0A12E">BARRIER</text>
+        <!-- TR: KOL Divergence -->
+        <circle cx="525" cy="80" r="30" fill="rgba(220,74,65,0.08)" stroke="#DC4A41" stroke-width="1.5"/>
+        <text x="525" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#DC4A41">KOL</text>
+        <text x="525" y="88" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#DC4A41">DIVERGENCE</text>
+        <!-- BR: Pipeline -->
+        <circle cx="525" cy="240" r="30" fill="rgba(139,124,240,0.08)" stroke="#8B7CF0" stroke-width="1.5"/>
+        <text x="525" y="235" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#8B7CF0">SEIZURE</text>
+        <text x="525" y="248" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" font-weight="700" fill="#8B7CF0">PIPELINE</text>
+      </svg>
+    </div>
+
+    <div class="narr-cards">
+      <div class="narr-card">
+        <div class="narr-card-header">
+          <span class="narr-card-name">Bimzelx HS Leadership</span>
+          <span class="narr-badge nb-acc">Accelerating</span>
+        </div>
+        <p class="narr-card-body">71% SOV at EADV 2025. HS RWE signal velocity +97%. The dominant narrative in European HS biologic discussions. Risk: competitors submitted late-breaking data. Sustain with long-term durability evidence and Jemec advisory board leadership.</p>
+        <div class="narr-card-driver">Primary Driver</div>
+        <div class="narr-card-driver-val">EADV 2025 SOV · RWE surge · Jemec anchor</div>
+      </div>
+      <div class="narr-card">
+        <div class="narr-card-header">
+          <span class="narr-card-name">MA Impact Measurement Gap</span>
+          <span class="narr-badge nb-risk">At Risk</span>
+        </div>
+        <p class="narr-card-body">31% insight-to-action rate vs 60% target. MO2 is Gap. This is the core VEGA narrative — and the primary reason leadership requested this platform review. Three structured actions close it before Q3 review.</p>
+        <div class="narr-card-driver">Primary Driver</div>
+        <div class="narr-card-driver-val">VEGA ROMI analysis · Leadership interviews</div>
+      </div>
+      <div class="narr-card">
+        <div class="narr-card-header">
+          <span class="narr-card-name">IL-17A/F Differentiation</span>
+          <span class="narr-badge nb-build">Building</span>
+        </div>
+        <p class="narr-card-body">Academic KOLs aligned. Community derm gap is structural — mechanism is not reaching mid-volume prescribers. Signal velocity +55%. Patient-case-led materials for the Cosentyx partial-responder population is the MO4 gap-fill.</p>
+        <div class="narr-card-driver">Primary Driver</div>
+        <div class="narr-card-driver-val">MSL field reports · AAD 2025 debrief</div>
+      </div>
+      <div class="narr-card">
+        <div class="narr-card-header">
+          <span class="narr-card-name">Payer Access Barrier — HS</span>
+          <span class="narr-badge nb-watch">Watch</span>
+        </div>
+        <p class="narr-card-body">Step-therapy requirements delaying biologic-naïve HS patients 4–6 months. 4× recurring signal. No prior-auth materials exist. Access signal velocity +38%. Structural barrier that field medical can address with the right payer tools.</p>
+        <div class="narr-card-driver">Primary Driver</div>
+        <div class="narr-card-driver-val">4 MSL reports · EU5 + US consistent</div>
+      </div>
+      <div class="narr-card">
+        <div class="narr-card-header">
+          <span class="narr-card-name">KOL Divergence Risk</span>
+          <span class="narr-badge nb-risk">At Risk</span>
+        </div>
+        <p class="narr-card-body">Zouboulis 81→53 in 60 days. Competitor co-authorship (Novartis). 8-week contact gap. Private sentiment intact. Re-engage before EADV 2025 data presentations — one scientific exchange closes the gap.</p>
+        <div class="narr-card-driver">Primary Driver</div>
+        <div class="narr-card-driver-val">LUCA alignment monitor · EADV abstract</div>
+      </div>
+      <div class="narr-card">
+        <div class="narr-card-header">
+          <span class="narr-card-name">Seizure Pipeline Build</span>
+          <span class="narr-badge nb-build">Building</span>
+        </div>
+        <p class="narr-card-body">18-month window. 14 identified KOL candidates — 0 engaged. REST paradigm awareness emerging (+31%). Dravet roster (Helbig, Nabbout, Sullivan) is a strong foundation. Pipeline KOL mapping is a Gap that closes with one structured outreach plan.</p>
+        <div class="narr-card-driver">Primary Driver</div>
+        <div class="narr-card-driver-val">NOVA publication analysis · AES 2025 speakers</div>
+      </div>
+    </div>
+  </div><!-- /view-narrative -->
+
+</main>
+</div><!-- /shell -->
+
+<!-- OVERLAY: Persona -->
+<div id="overlay" onclick="closePersona()">
+  <div class="overlay-panel" onclick="event.stopPropagation()">
+    <div class="overlay-label">Personalize Brief</div>
+    <div class="overlay-heading">Customize your morning brief</div>
+    <div class="overlay-subtext">Your focus area, role, or congress context shapes which signals surface first. This is saved to your profile in ucb-prod-azure and not shared externally.</div>
+    <div class="overlay-buttons">
+      <button class="btn-skip" onclick="closePersona()">Skip</button>
+      <button class="btn-save" onclick="closePersona()">Save preferences</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  const shell = document.getElementById('shell');
+  const btn = document.getElementById('sidebar-toggle');
+  shell.classList.toggle('collapsed');
+  btn.textContent = shell.classList.contains('collapsed') ? '›' : '‹';
+}
+
+function showView(name, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const v = document.getElementById('view-' + name);
+  if (v) v.classList.add('active');
+  if (el) el.classList.add('active');
+  // Re-mark Morning Brief nav active
+  const navBrief = document.getElementById('nav-brief');
+  if (name === 'brief' && navBrief) navBrief.classList.add('active');
+}
+
+function switchBrief(card, briefId) {
+  // Deactivate all brief cards
+  document.querySelectorAll('.brief-card').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  // Deactivate all brief contents
+  document.querySelectorAll('.brief-content').forEach(b => b.classList.remove('active'));
+  const target = document.getElementById('brief-' + briefId);
+  if (target) target.classList.add('active');
+  // Ensure we're in the brief view
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-brief').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('nav-brief').classList.add('active');
+}
+
+function openPersona() { document.getElementById('overlay').classList.add('open'); }
+function closePersona() { document.getElementById('overlay').classList.remove('open'); }
+</script>
+</body>
+</html>
