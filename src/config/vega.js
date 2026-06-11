@@ -32,7 +32,7 @@ export const VEGA_ENGAGEMENT_GAPS = [
 ];
 
 export const VEGA_SHARE_OF_VOICE = {
-  watchArea: 'Bimzelx HS share of voice is dominant (71%) following EADV 2025. In PsA and plaque psoriasis, Cosentyx (Novartis) still leads at 44% vs Bimzelx 38%. IL-17F contribution debate is growing +28pts in 90 days. Recommend prioritising IL-17A/F differentiation content co-creation with Lebwohl and Thaçi ahead of AAD 2026.',
+  watchArea: 'Bimzelx HS share of voice is dominant (71%) following EADV 2025. In PsA and plaque psoriasis, Cosentyx (Novartis) still leads at 44% vs Bimzelx 38%. IL-17F contribution debate is growing +28pts in 90 days. Recommend prioritising IL-17A/F differentiation content co-creation with Lebwohl and Thaçi ahead of EADV 2026 (October).',
   rows: [
     { source: 'Congress abstracts (AAD/EADV 2025)',    us: '48%', compA: '29%', compB: '16%', compC: '7%',  trend: 'up'   },
     { source: 'Peer-reviewed publications (12m)',      us: '39%', compA: '33%', compB: '20%', compC: '8%',  trend: 'up'   },
@@ -44,7 +44,7 @@ export const VEGA_SHARE_OF_VOICE = {
 
 export const VEGA_SENTIMENT_VELOCITY = [
   { kol: 'Gregor Jemec',       score: 91, change30d: '+2.4', velocity: '+0.9 ↑↑', interpretation: 'Strongly positive — HS global KOL; advisory board anchor for RWE programme' },
-  { kol: 'Christos Zouboulis', score: 53, change30d: '-8.8', velocity: '-2.1 ↓↓', interpretation: 'Worsening fast — competitor co-authorship signal; re-engage urgently with Bimzelx HS data' },
+  { kol: 'Christos Zouboulis', score: 53, change30d: '-8.8', velocity: '-2.1 ↓↓', interpretation: 'Public narrative declining fast (Novartis co-authorship) — private MSL alignment remains 85%. Re-engage before public positioning hardens ahead of EADV 2026.' },
   { kol: 'Iain McInnes',       score: 87, change30d: '+1.8', velocity: '+0.6 ↑',  interpretation: 'Steady positive — IL-17 immunobiology alignment strong; EULAR 2026 symposia anchor' },
   { kol: 'Mark Lebwohl',       score: 89, change30d: '+1.2', velocity: '+0.4 ↑',  interpretation: 'Stable — primary US psoriasis KOL; IL-17A/F differentiation positioning well-aligned' },
 ];

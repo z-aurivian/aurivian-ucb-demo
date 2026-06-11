@@ -112,7 +112,7 @@ export const KOL_DATA = [
     publications: 215,
     focusAreas: ['HS inflammation pathways', 'European HS treatment consensus', 'Biologic durability in HS'],
     conferenceAppearances: ['EADV 2025', 'IHS 2025'],
-    recommendedStrategy: 'European HS mechanism leader — engagement gap detected (last contact 8 weeks). Re-engage before EADV 2025 data presentation with Bimzelx HS IL-17F evidence package.',
+    recommendedStrategy: 'European HS mechanism leader — engagement gap detected (last contact 8 weeks). Re-engage with Bimzelx HS IL-17F evidence package; public narrative drifting toward Novartis platform. Priority window: before EADV 2026 (October).',
     email: '',
   },
   {

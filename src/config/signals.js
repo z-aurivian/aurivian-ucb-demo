@@ -12,15 +12,15 @@ export const SIGNALS = [
   {
     agent: 'ARIA',
     timestamp: '2026-06-03T11:30:00Z',
-    headline: 'Bimzelx HS share of voice hits 71% at EADV 2025 — competitor response expected',
-    context: 'ARIA\'s congress monitoring shows Bimzelx dominated HS sessions at EADV 2025 with 71% share of voice in IL-17 biologic discussions. AbbVie (Skyrizi) and Novartis (Cosentyx) both submitted late-breaking HS data. Competitor MSL teams were observed at 4 Bimzelx-affiliated poster presentations. A coordinated counter-messaging response from at least one competitor is anticipated before AAD 2026.',
+    headline: 'Bimzelx HS share of voice hits 71% at EADV 2025 — competitor response now materializing',
+    context: 'ARIA\'s congress monitoring shows Bimzelx dominated HS sessions at EADV 2025 with 71% share of voice in IL-17 biologic discussions. AbbVie (Skyrizi) and Novartis (Cosentyx) both submitted late-breaking HS data. Competitor MSL activity has accelerated since AAD 2026 (March). Sustained counter-messaging is expected ahead of EADV 2026 (October) — the next major opportunity to defend the HS leadership position.',
     suggestedAction: { label: 'Open in ARIA', path: '/congress' },
   },
   {
     agent: 'LUCA',
     timestamp: '2026-06-02T14:00:00Z',
     headline: 'KOL alignment gap: Dr. Christos Zouboulis public vs. private divergence detected',
-    context: 'LUCA alignment score for Zouboulis dropped 81 → 53. Recent EADV abstract co-authored with Novartis raises public alignment concern; private MSL interactions remain positive on Bimzelx HS mechanism. Last UCB contact was 8 weeks ago. Competitor MSL engagement in the same period is inferred from publication co-authorship patterns.',
+    context: 'Pulse public narrative score for Zouboulis dropped 81 → 53 over 60 days (tracks social posts, publications, and congress co-authorships). Note: LUCA\'s Medical Messaging Alignment — which tracks MSL interaction quality and advisory engagement — remains high at 85%. This divergence between public (53) and private (85) is the signal: his one-on-one UCB relationship is intact, but his public positioning is drifting toward a Novartis platform via a co-authored EADV abstract. Last UCB contact was 8 weeks ago. Re-engage before the public narrative hardens ahead of EADV 2026.',
     suggestedAction: { label: 'Open in LUCA', path: '/kol' },
   },
   {
