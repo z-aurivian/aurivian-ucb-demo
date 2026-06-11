@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Filter, ChevronDown, ChevronUp, MapPin, BookOpen, Calendar, Star, Users, Globe, Target } from 'lucide-react';
-import { KOL_DATA } from '../config/kols';
-import { PRODUCT_OPTIONS } from '../data/demoData';
+import { KOL_DATA, PRODUCT_OPTIONS } from '../config';
 import { getMessagingAlignment } from '../config';
 import AgentSurfaceHeader from './AgentSurfaceHeader';
 

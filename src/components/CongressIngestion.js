@@ -80,7 +80,7 @@ function CongressIngestion({ selectedCongress }) {
                       <div key={product} className="flex items-center gap-2">
                         <span className="w-20 text-auri-muted truncate">{product}</span>
                         <div className="flex-1 h-2 bg-auri-card rounded-full overflow-hidden">
-                          <div className="h-full bg-blue-400 rounded-full" style={{ width: `${row[product] || 0}%` }} />
+                          <div className="h-full bg-auri-blue rounded-full" style={{ width: `${row[product] || 0}%` }} />
                         </div>
                         <span className="text-auri-blue w-8 font-medium">{row[product] ?? 0}</span>
                       </div>

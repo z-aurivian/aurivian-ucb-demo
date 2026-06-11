@@ -12,7 +12,7 @@
 }
 
 .chat-message pre {
-  background: #f3f4f6;
+  background: rgb(var(--auri-card));
   padding: 12px;
   border-radius: 6px;
   overflow-x: auto;
@@ -39,11 +39,11 @@
 }
 
 .chat-message th, .chat-message td {
-  border: 1px solid #e5e7eb;
+  border: 1px solid rgb(var(--auri-border));
   padding: 6px 10px;
   text-align: left;
 }
 
 .chat-message th {
-  background: #f9fafb;
+  background: rgb(var(--auri-card));
 }
