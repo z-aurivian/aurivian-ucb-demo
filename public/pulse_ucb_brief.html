@@ -1430,6 +1430,25 @@ body {
   </div>
 </div>
 
+<!-- AUDIO BAR -->
+<div id="audio-bar">
+  <button class="audio-play-btn" onclick="toggleAudio()" id="play-btn">
+    <span id="play-icon" class="audio-play-icon">&#9654;</span>
+  </button>
+  <div class="audio-meta">
+    <div class="audio-title">Pulse Brief · June 11, 2026</div>
+    <div class="audio-subtitle">UCB Medical Intelligence · 2 min 37 sec</div>
+  </div>
+  <div class="audio-progress-wrap">
+    <div class="audio-track" onclick="scrubAudio(event)" id="audio-track">
+      <div class="audio-fill" id="audio-fill"></div>
+    </div>
+    <span class="audio-time" id="audio-time">0:00 / 2:37</span>
+  </div>
+  <button class="audio-close" onclick="closeAudio()" title="Close">&#215;</button>
+</div>
+<audio id="brief-audio" src="pulse_ucb_brief_audio.mp3" preload="metadata"></audio>
+
 <script>
 function toggleSidebar() {
   const shell = document.getElementById('shell');
@@ -1526,24 +1545,6 @@ function scrubAudio(e) {
 }
 </script>
 
-<!-- AUDIO BAR -->
-<div id="audio-bar">
-  <button class="audio-play-btn" onclick="toggleAudio()" id="play-btn">
-    <span id="play-icon" class="audio-play-icon">&#9654;</span>
-  </button>
-  <div class="audio-meta">
-    <div class="audio-title">Pulse Brief · June 11, 2026</div>
-    <div class="audio-subtitle">UCB Medical Intelligence · 2 min 37 sec</div>
-  </div>
-  <div class="audio-progress-wrap">
-    <div class="audio-track" onclick="scrubAudio(event)" id="audio-track">
-      <div class="audio-fill" id="audio-fill"></div>
-    </div>
-    <span class="audio-time" id="audio-time">0:00 / 2:37</span>
-  </div>
-  <button class="audio-close" onclick="closeAudio()" title="Close">&#215;</button>
-</div>
-<audio id="brief-audio" src="pulse_ucb_brief_audio.mp3" preload="metadata"></audio>
 
 </body>
 </html>
