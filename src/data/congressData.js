@@ -1,82 +1,93 @@
 // ============================================================================
-// Congress Intelligence Data — adapted from Terumo ingestion pipeline
-// Keys off CONGRESS_OPTIONS from clientConfig
+// Congress Intelligence Data — UCB / Bimzelx
+// Keys off CONGRESS_OPTIONS (EADV 2025, AAD 2025 + trend)
 // ============================================================================
 
-import { PRODUCT_OPTIONS } from '../config/clientConfig';
+import { PRODUCT_OPTIONS } from '../config';
 
 const productNames = PRODUCT_OPTIONS.map(p => p.name);
 
 export const MOCK_TREND_SENTIMENT = {
-  timeline: ['Post-ASH 2024', 'Q1 2025', 'Q2 2025', 'Q3 2025', 'ASH 2025'],
+  timeline: ['Pre-AAD 2025', 'AAD 2025', 'Q2 2025', 'Q3 2025', 'EADV 2025'],
   scientific: [
-    { period: 'Post-ASH 2024', [productNames[0]]: 62, [productNames[1]]: 68, 'Iptacopan': 55, Other: 50 },
-    { period: 'Q1 2025', [productNames[0]]: 64, [productNames[1]]: 72, 'Iptacopan': 60, Other: 52 },
-    { period: 'Q2 2025', [productNames[0]]: 66, [productNames[1]]: 76, 'Iptacopan': 65, Other: 54 },
-    { period: 'Q3 2025', [productNames[0]]: 68, [productNames[1]]: 80, 'Iptacopan': 70, Other: 56 },
-    { period: 'ASH 2025', [productNames[0]]: 65, [productNames[1]]: 84, 'Iptacopan': 74, Other: 58 },
+    { period: 'Pre-AAD 2025',  [productNames[0]]: 60, 'Secukinumab': 66, 'Risankizumab': 58, Other: 48 },
+    { period: 'AAD 2025',      [productNames[0]]: 65, 'Secukinumab': 67, 'Risankizumab': 62, Other: 50 },
+    { period: 'Q2 2025',       [productNames[0]]: 70, 'Secukinumab': 68, 'Risankizumab': 64, Other: 52 },
+    { period: 'Q3 2025',       [productNames[0]]: 74, 'Secukinumab': 68, 'Risankizumab': 66, Other: 53 },
+    { period: 'EADV 2025',     [productNames[0]]: 79, 'Secukinumab': 69, 'Risankizumab': 68, Other: 55 },
   ],
   social: [
-    { period: 'Post-ASH 2024', [productNames[0]]: 58, [productNames[1]]: 64, 'Iptacopan': 52, Other: 48 },
-    { period: 'Q1 2025', [productNames[0]]: 60, [productNames[1]]: 68, 'Iptacopan': 56, Other: 50 },
-    { period: 'Q2 2025', [productNames[0]]: 62, [productNames[1]]: 72, 'Iptacopan': 60, Other: 52 },
-    { period: 'Q3 2025', [productNames[0]]: 64, [productNames[1]]: 76, 'Iptacopan': 64, Other: 54 },
-    { period: 'ASH 2025', [productNames[0]]: 62, [productNames[1]]: 80, 'Iptacopan': 68, Other: 56 },
+    { period: 'Pre-AAD 2025',  [productNames[0]]: 55, 'Secukinumab': 62, 'Risankizumab': 52, Other: 44 },
+    { period: 'AAD 2025',      [productNames[0]]: 60, 'Secukinumab': 63, 'Risankizumab': 56, Other: 46 },
+    { period: 'Q2 2025',       [productNames[0]]: 65, 'Secukinumab': 64, 'Risankizumab': 58, Other: 48 },
+    { period: 'Q3 2025',       [productNames[0]]: 70, 'Secukinumab': 64, 'Risankizumab': 60, Other: 50 },
+    { period: 'EADV 2025',     [productNames[0]]: 76, 'Secukinumab': 65, 'Risankizumab': 62, Other: 52 },
   ],
 };
 
 export const MOCK_SCIENTIFIC_ARTICLES = [
-  { title: 'Long-term ravulizumab efficacy in PNH: 5-year follow-up', journalOrCongress: 'ASH 2024', date: '2024-12', product: productNames[1], sentiment: 'positive' },
-  { title: 'Biosimilar eculizumab switching outcomes in Europe', journalOrCongress: 'Blood', date: '2024-11', product: productNames[0], sentiment: 'neutral' },
-  { title: 'Iptacopan oral complement inhibitor Phase III results', journalOrCongress: 'NEJM', date: '2025-01', product: 'Iptacopan', sentiment: 'positive' },
-  { title: 'C5 inhibitor sequencing strategies in gMG', journalOrCongress: 'ASH 2025 Abstract', date: '2025-12', product: productNames[1], sentiment: 'positive' },
-  { title: 'Real-world complement inhibitor utilization patterns', journalOrCongress: 'Am J Hematol', date: '2025-03', product: productNames[0], sentiment: 'neutral' },
+  { title: 'Bimekizumab dual IL-17A/F inhibition: 2-year maintenance data in moderate-to-severe PsO', journalOrCongress: 'EADV 2025', date: '2025-10', product: productNames[0], sentiment: 'positive' },
+  { title: 'Head-to-head IL-17 inhibitor outcomes in HS: bimekizumab vs secukinumab', journalOrCongress: 'JAMA Dermatology', date: '2025-08', product: productNames[0], sentiment: 'positive' },
+  { title: 'Secukinumab long-term safety in psoriatic arthritis: 5-year registry data', journalOrCongress: 'AAD 2025', date: '2025-03', product: 'Secukinumab', sentiment: 'neutral' },
+  { title: 'Risankizumab vs IL-17 inhibitors in axSpA: network meta-analysis', journalOrCongress: 'Ann Rheum Dis', date: '2025-06', product: 'Risankizumab', sentiment: 'neutral' },
+  { title: 'IL-17F blockade contribution to bimekizumab efficacy in hidradenitis suppurativa', journalOrCongress: 'NEJM', date: '2025-09', product: productNames[0], sentiment: 'positive' },
 ];
 
 export const MOCK_SOCIAL_TREND_SOURCES = [
-  { platform: 'Twitter', author: 'Prof. R. Brodsky', topic: 'PNH treatment landscape', date: '2024-12', product: productNames[1], sentiment: 'positive' },
-  { platform: 'LinkedIn', author: 'Dr. A. Hill', topic: 'Biosimilar switching readiness', date: '2025-01', product: productNames[0], sentiment: 'neutral' },
-  { platform: 'Twitter', author: 'KOL Hematology', topic: 'Oral complement inhibitor data', date: '2025-03', product: 'Iptacopan', sentiment: 'positive' },
-  { platform: 'LinkedIn', author: 'Dr. H. Schrezenmeier', topic: 'Ultomiris real-world data', date: '2025-06', product: productNames[1], sentiment: 'positive' },
-  { platform: 'Conference backchannel', author: 'Multiple', topic: 'ASH 2025 complement sessions', date: '2025-12', product: productNames[1], sentiment: 'positive' },
+  { platform: 'Twitter', author: 'Prof. C. Zouboulis', topic: 'HS disease control — IL-17A/F vs IL-17A only', date: '2025-10', product: productNames[0], sentiment: 'neutral' },
+  { platform: 'LinkedIn', author: 'Dr. K. Reich', topic: 'Bimekizumab EADV data — impressive PASI 100 rates', date: '2025-10', product: productNames[0], sentiment: 'positive' },
+  { platform: 'Twitter', author: 'Dr. L. Puig', topic: 'AAD 2025 highlights: IL-17 class differentiation', date: '2025-03', product: productNames[0], sentiment: 'positive' },
+  { platform: 'LinkedIn', author: 'Dr. A. Blauvelt', topic: 'Comparative IL-17 inhibitor persistence data', date: '2025-06', product: 'Secukinumab', sentiment: 'neutral' },
+  { platform: 'Conference backchannel', author: 'Multiple', topic: 'EADV 2025: bimekizumab SC modality discussion', date: '2025-10', product: productNames[0], sentiment: 'positive' },
 ];
 
 export const MOCK_INGESTION = {
-  agendas: 14,
-  abstracts: 1247,
-  posters: 489,
-  speakers: 342,
-  publicationsLinked: 1568,
+  agendas: 16,
+  abstracts: 1384,
+  posters: 521,
+  speakers: 378,
+  publicationsLinked: 1742,
   sessions: [
-    { title: 'Complement Inhibition in PNH: Current and Emerging Therapies', track: 'Hematology', products: [productNames[0], productNames[1], 'Iptacopan'] },
-    { title: 'C5 Inhibitor Sequencing and Switching Strategies', track: 'Clinical Practice', products: [productNames[0], productNames[1]] },
-    { title: 'Rare Disease Registries and Real-World Evidence', track: 'Health Services', products: [productNames[1]] },
+    { title: 'IL-17 Pathway Inhibition in Inflammatory Skin and Joint Disease', track: 'Dermatology / Rheumatology', products: [productNames[0], 'Secukinumab', 'Ixekizumab'] },
+    { title: 'Hidradenitis Suppurativa: Emerging Biologics and Treat-to-Target Strategies', track: 'Dermatology', products: [productNames[0]] },
+    { title: 'Psoriatic Arthritis in 2025: Sequencing Biologics and Small Molecules', track: 'Rheumatology', products: [productNames[0], 'Risankizumab', 'Guselkumab'] },
   ],
 };
 
 export const INGESTION_BY_CONGRESS = {
-  'ash-2024': {
-    agendas: 12,
-    abstracts: 1108,
-    posters: 412,
-    speakers: 298,
-    publicationsLinked: 1342,
+  'aad-2025': {
+    agendas: 13,
+    abstracts: 1156,
+    posters: 437,
+    speakers: 312,
+    publicationsLinked: 1418,
     sessions: [
-      { title: 'Complement Pathway Therapeutics in PNH', track: 'Hematology', products: [productNames[0], productNames[1]] },
-      { title: 'Biosimilar Transition in Rare Disease', track: 'Health Services', products: [productNames[0]] },
-      { title: 'Emerging Oral Complement Inhibitors', track: 'Clinical Trials', products: ['Iptacopan', 'Danicopan'] },
+      { title: 'Biologics in Moderate-to-Severe Psoriasis: Long-Term Outcomes', track: 'Dermatology', products: [productNames[0], 'Secukinumab', 'Ixekizumab'] },
+      { title: 'Hidradenitis Suppurativa — Pathogenesis and Biologic Targets', track: 'Dermatology', products: [productNames[0]] },
+      { title: 'IL-17 vs IL-23 Inhibition: Choosing the Right Mechanism', track: 'Clinical Practice', products: ['Secukinumab', 'Risankizumab', 'Guselkumab'] },
     ],
   },
-  'ash-2025': {
-    agendas: 14,
-    abstracts: 1247,
-    posters: 489,
-    speakers: 342,
-    publicationsLinked: 1568,
+  'eadv-2025': {
+    agendas: 16,
+    abstracts: 1384,
+    posters: 521,
+    speakers: 378,
+    publicationsLinked: 1742,
     sessions: [
-      { title: 'Complement Inhibition in PNH: Current and Emerging Therapies', track: 'Hematology', products: [productNames[0], productNames[1], 'Iptacopan'] },
-      { title: 'C5 Inhibitor Sequencing and Switching Strategies', track: 'Clinical Practice', products: [productNames[0], productNames[1]] },
-      { title: 'Rare Disease Registries and Real-World Evidence', track: 'Health Services', products: [productNames[1]] },
+      { title: 'IL-17 Pathway Inhibition in Inflammatory Skin and Joint Disease', track: 'Dermatology / Rheumatology', products: [productNames[0], 'Secukinumab', 'Ixekizumab'] },
+      { title: 'Hidradenitis Suppurativa: Emerging Biologics and Treat-to-Target Strategies', track: 'Dermatology', products: [productNames[0]] },
+      { title: 'Psoriatic Arthritis in 2025: Sequencing Biologics and Small Molecules', track: 'Rheumatology', products: [productNames[0], 'Risankizumab', 'Guselkumab'] },
+    ],
+  },
+  'trend-aad-eadv': {
+    agendas: 29,
+    abstracts: 2540,
+    posters: 958,
+    speakers: 690,
+    publicationsLinked: 3160,
+    sessions: [
+      { title: 'AAD → EADV: Bimekizumab momentum across both congresses', track: 'Cross-congress trend', products: [productNames[0]] },
+      { title: 'Competitive positioning: IL-17A/F vs IL-17A-only inhibitors', track: 'Class differentiation', products: [productNames[0], 'Secukinumab', 'Ixekizumab'] },
     ],
   },
 };
@@ -87,67 +98,68 @@ export function getIngestionForCongress(congressId) {
 
 export const MOCK_THEMES = [
   {
-    theme: 'Biosimilar switching readiness & outcomes',
-    momentum: 94,
-    mentions: 52,
-    summary: 'Community hematologists and infusion-center directors are openly debating readiness for Soliris biosimilar entry. Discussion clusters on outcome parity in PNH and practical switching protocols for stable patients.',
-    action: 'Accelerate MSL switch-protocol toolkit and co-create a community-facing outcomes narrative before biosimilar launch windows open.',
+    theme: 'IL-17A/F dual inhibition as the new efficacy benchmark',
+    momentum: 96,
+    mentions: 58,
+    summary: 'Dermatology KOLs at EADV 2025 are coalescing around the view that simultaneous IL-17A and IL-17F blockade delivers meaningfully higher PASI 100 and IGA 0/1 rates than IL-17A-only approaches. The mechanism debate is shifting from "class equivalence" to "where does the extra F blockade matter."',
+    action: 'Equip MSLs with a mechanistic differentiation deck and head-to-head efficacy comparators for KOL engagements at AAD, GRAPPA, and EULAR.',
   },
   {
-    theme: 'Oral complement inhibitor competitive pressure',
-    momentum: 91,
-    mentions: 44,
-    summary: 'Iptacopan and pegcetacoplan oral/SC options are reshaping patient-preference conversations, especially among younger PNH patients. KOLs frame the debate as convenience vs. long-term disease control.',
-    action: 'Prepare head-to-head disease-control narrative and MSL FAQ emphasizing long-term RWE. Engage oral-combination investigators to anchor sequencing conversations.',
+    theme: 'Hidradenitis suppurativa as a breakout indication',
+    momentum: 92,
+    mentions: 47,
+    summary: 'HS is generating disproportionate EADV 2025 buzz. Bimzelx is the only IL-17A/F inhibitor with an approved HS indication, and KOLs are actively discussing treat-to-target protocols and patient selection. High unmet need creates strong referral and education opportunity.',
+    action: 'Prioritize HS-focused MSL training and co-develop a treat-to-target resource with top HS investigators. Capture HS pathway discussions via Congress Capture at upcoming dermatology meetings.',
   },
   {
-    theme: 'C5 vs proximal complement inhibition debate',
+    theme: 'Durability and SC-modality transition in PsO',
     momentum: 87,
-    mentions: 38,
-    summary: 'Mechanistic differentiation conversations are concentrated among academic hematologists and translational scientists. Proximal inhibition proponents challenge C5 durability; C5 advocates cite bleed control and long-term safety profile.',
-    action: 'Commission a mechanistic-differentiation slide deck and sponsor a roundtable bridging C5 and proximal-inhibition perspectives.',
+    mentions: 41,
+    summary: 'Long-term responder data and the availability of subcutaneous dosing are driving conversations about patient preference and adherence. Payers and HCPs want 2-year+ PASI 100 persistence data. SC modality perceived as differentiating versus IV-requiring biosimilars.',
+    action: 'Publish and amplify 2-year PASI 100 maintenance data. Build SC patient preference narrative for HEOR and market access.',
   },
   {
-    theme: 'Real-world evidence in rare hematologic disease',
-    momentum: 82,
-    mentions: 31,
-    summary: 'Persistent call from community centers and payers for long-horizon RWE — particularly in aHUS and pediatric populations where registrational data are thin.',
-    action: 'Prioritize pediatric aHUS sub-analysis and long-term retention RWE. Align with HEOR on publication cadence.',
+    theme: 'PsA and axSpA sequencing debate — IL-17 vs IL-23',
+    momentum: 83,
+    mentions: 35,
+    summary: 'Rheumatologists are actively debating first-line biologic choice in PsA and axSpA between IL-17 and IL-23 inhibitors. Bimzelx\'s dual coverage of skin and joint manifestations is a key talking point, but IL-23 agents\' once-quarterly dosing is a competing value proposition.',
+    action: 'Commission a sequencing white-paper with Rheumatology KOLs. Develop shared-care messaging for dermatologists and rheumatologists co-managing PsA patients.',
   },
 ];
 
 export const MOCK_COMPETITOR_VISIBILITY = [
-  { product: `${productNames[0]} (Alexion)`, share: 24, mentions: 78 },
-  { product: `${productNames[1]} (Alexion)`, share: 34, mentions: 112 },
-  { product: 'Iptacopan / Fabhalta (Novartis)', share: 22, mentions: 71 },
-  { product: 'Other C5/C3 inhibitors', share: 20, mentions: 64 },
+  { product: `${productNames[0]} (UCB)`, share: 31, mentions: 104 },
+  { product: 'Secukinumab / Cosentyx (Novartis)', share: 27, mentions: 91 },
+  { product: 'Risankizumab / Skyrizi (AbbVie)', share: 22, mentions: 74 },
+  { product: 'Ixekizumab / Taltz (Eli Lilly)', share: 12, mentions: 40 },
+  { product: 'Guselkumab / Tremfya (J&J)', share: 8, mentions: 27 },
 ];
 
 export const MOCK_TRIALS = {
-  total: 52,
-  linkedToKOLs: 34,
-  byIndication: { PNH: 28, aHUS: 12, gMG: 8, NMOSD: 4 },
+  total: 38,
+  linkedToKOLs: 24,
+  byIndication: { PsO: 14, HS: 10, PsA: 8, axSpA: 6 },
   sample: [
-    { nctId: 'NCT04432584', title: 'Ravulizumab vs eculizumab switching study in PNH', phase: 'Phase III', sponsor: 'Alexion', product: productNames[1], indication: 'PNH', status: 'Completed', sites: 24 },
-    { nctId: 'NCT04557735', title: 'Long-term safety of ravulizumab in aHUS', phase: 'Phase III', sponsor: 'Alexion', product: productNames[1], indication: 'aHUS', status: 'Active', sites: 18 },
-    { nctId: 'NCT05070858', title: 'Iptacopan monotherapy in PNH (APPLY-PNH)', phase: 'Phase III', sponsor: 'Novartis', product: 'Iptacopan', indication: 'PNH', status: 'Completed', sites: 32 },
-    { nctId: 'NCT04469465', title: 'Danicopan add-on to C5 inhibitor in PNH', phase: 'Phase III', sponsor: 'Alexion', product: 'Danicopan', indication: 'PNH', status: 'Active', sites: 20 },
+    { nctId: 'NCT03370133', title: 'BE READY: Bimekizumab vs placebo in moderate-to-severe psoriasis', phase: 'Phase III', sponsor: 'UCB', product: productNames[0], indication: 'PsO', status: 'Completed', sites: 46 },
+    { nctId: 'NCT03412747', title: 'BE VIVID: Bimekizumab vs secukinumab and ustekinumab in PsO', phase: 'Phase IIIb', sponsor: 'UCB', product: productNames[0], indication: 'PsO', status: 'Completed', sites: 58 },
+    { nctId: 'NCT04242498', title: 'BE HEARD I: Bimekizumab in moderate-to-severe hidradenitis suppurativa', phase: 'Phase III', sponsor: 'UCB', product: productNames[0], indication: 'HS', status: 'Completed', sites: 62 },
+    { nctId: 'NCT04242550', title: 'BE HEARD II: Bimekizumab in moderate-to-severe hidradenitis suppurativa', phase: 'Phase III', sponsor: 'UCB', product: productNames[0], indication: 'HS', status: 'Active', sites: 55 },
   ],
 };
 
 export const MOCK_SOCIAL = {
-  totalSignals: 4280,
+  totalSignals: 3960,
   period: 'Last 90 days',
   byPlatform: [
-    { platform: 'Twitter / X', mentions: 1480, kolsTracked: 95 },
-    { platform: 'LinkedIn', mentions: 1024, kolsTracked: 128 },
-    { platform: 'PubMed / alerts', mentions: 568, kolsTracked: 340 },
-    { platform: 'Conference backchannels', mentions: 1208, kolsTracked: 142 },
+    { platform: 'Twitter / X', mentions: 1340, kolsTracked: 88 },
+    { platform: 'LinkedIn', mentions: 978, kolsTracked: 114 },
+    { platform: 'PubMed / alerts', mentions: 512, kolsTracked: 298 },
+    { platform: 'Conference backchannels', mentions: 1130, kolsTracked: 127 },
   ],
   sample: [
-    { platform: 'Twitter', author: 'Prof. R. Brodsky', topic: 'PNH treatment paradigm shift', sentiment: 'positive', date: '2025-11-18' },
-    { platform: 'LinkedIn', author: 'Dr. A. Hill', topic: 'Biosimilar eculizumab real-world data', sentiment: 'neutral', date: '2025-11-12' },
-    { platform: 'PubMed alert', author: 'Multiple', topic: 'Complement inhibition systematic review', sentiment: 'positive', date: '2025-11-08' },
+    { platform: 'Twitter', author: 'Dr. K. Reich', topic: 'EADV 2025 bimekizumab 2-year PASI 100 — best-in-class?', sentiment: 'positive', date: '2025-10-03' },
+    { platform: 'LinkedIn', author: 'Prof. C. Zouboulis', topic: 'HS treat-to-target: IL-17A/F vs TNFi sequencing', sentiment: 'neutral', date: '2025-10-02' },
+    { platform: 'PubMed alert', author: 'Multiple', topic: 'IL-17 pathway inhibition systematic review 2025', sentiment: 'positive', date: '2025-09-28' },
   ],
 };
 
