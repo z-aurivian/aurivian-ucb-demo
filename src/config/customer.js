@@ -12,3 +12,4 @@ export const CLIENT = {
 };
 
 export const CAPTURE_APP_URL = null;
+export const PULSE_BRIEF_URL = '/pulse_ucb_brief.html';
