@@ -11,4 +11,4 @@ export const CLIENT = {
   logoSrc: null,
 };
 
-export const CAPTURE_APP_URL = 'https://aurivian-capture-demo.vercel.app';
+export const CAPTURE_APP_URL = null;
