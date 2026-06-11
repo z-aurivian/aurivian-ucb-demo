@@ -20,7 +20,7 @@ function ExportButton() {
   return (
     <button
       onClick={() => window.alert('Export to PowerPoint — coming soon. The published deck will mirror this view with formatted slides per measure.')}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-blue/50 transition-all"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-text/50 transition-all"
     >
       <FileDown size={13} />
       Export to PPT
@@ -32,7 +32,7 @@ function SectionHeader({ icon: Icon, title, subtitle }) {
   return (
     <div className="flex items-end justify-between gap-3 mb-3">
       <div className="flex items-center gap-2">
-        <Icon size={16} className="text-auri-blue" />
+        <Icon size={16} className="text-auri-text" />
         <h3 className="text-sm font-semibold text-auri-text">{title}</h3>
         {subtitle && <span className="text-xs text-auri-muted">{subtitle}</span>}
       </div>
@@ -43,7 +43,7 @@ function SectionHeader({ icon: Icon, title, subtitle }) {
 
 function Insight({ children, tone = 'info' }) {
   const tones = {
-    info:    'bg-auri-blue/5 border-auri-blue/30 text-auri-text',
+    info:    'bg-auri-text/5 border-auri-text/30 text-auri-text',
     warning: 'bg-amber-50 border-amber-200 text-amber-900',
     success: 'bg-emerald-50 border-emerald-200 text-emerald-900',
   };
@@ -83,7 +83,7 @@ function FieldEngagement() {
                     <td className="py-2 pr-4">
                       <div className="flex items-center gap-2">
                         <div className="w-20 h-1.5 bg-auri-card rounded-full overflow-hidden">
-                          <div className="h-full bg-auri-blue" style={{ width: `${row.pctTotal}%` }} />
+                          <div className="h-full bg-auri-text" style={{ width: `${row.pctTotal}%` }} />
                         </div>
                         <span className="text-xs text-auri-muted">{row.pctTotal}%</span>
                       </div>
@@ -220,7 +220,7 @@ function ScientificAlignment() {
                 return (
                   <tr key={row.source}>
                     <td className="py-2 pr-4 text-auri-text font-medium">{row.source}</td>
-                    <td className="py-2 pr-4 text-auri-blue font-semibold">{row.us}</td>
+                    <td className="py-2 pr-4 text-auri-text font-semibold">{row.us}</td>
                     <td className="py-2 pr-4 text-auri-text">{row.compA}</td>
                     <td className="py-2 pr-4 text-auri-text">{row.compB}</td>
                     <td className="py-2 pr-4 text-auri-text">{row.compC}</td>
@@ -282,7 +282,7 @@ function ImpactOutcomes() {
         <SectionHeader icon={Award} title="Medical Affairs Impact Index" subtitle="composite executive headline" />
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="rounded-lg border border-auri-border bg-auri-card p-4 text-center">
-            <div className="text-3xl font-semibold text-auri-blue">{idx.overall}<span className="text-base text-auri-muted">/100</span></div>
+            <div className="text-3xl font-semibold text-auri-text">{idx.overall}<span className="text-base text-auri-muted">/100</span></div>
             <div className="text-[11px] text-auri-muted mt-1">Overall Impact</div>
           </div>
           <div className="rounded-lg border border-auri-border bg-auri-card p-4 text-center">
@@ -300,7 +300,7 @@ function ImpactOutcomes() {
               <div className="w-44 shrink-0 text-sm text-auri-text">{d.dim}</div>
               <div className="flex-1 min-w-0">
                 <div className="h-1.5 bg-auri-card rounded-full overflow-hidden">
-                  <div className="h-full bg-auri-blue" style={{ width: `${d.score}%` }} />
+                  <div className="h-full bg-auri-text" style={{ width: `${d.score}%` }} />
                 </div>
                 <div className="text-[11px] text-auri-muted mt-1 leading-snug">{d.commentary}</div>
               </div>
@@ -328,7 +328,7 @@ function ImpactOutcomes() {
               {VEGA_CARE_GAP_CLOSURE.map((row) => (
                 <tr key={row.gap}>
                   <td className="py-2 pr-4 text-auri-text font-medium">{row.gap}</td>
-                  <td className="py-2 pr-4 text-auri-blue text-xs font-medium">{row.linkedMO}</td>
+                  <td className="py-2 pr-4 text-auri-text text-xs font-medium">{row.linkedMO}</td>
                   <td className="py-2 pr-4 text-auri-muted">{row.baseline}</td>
                   <td className="py-2 pr-4 text-auri-text font-medium">{row.current}</td>
                   <td className="py-2 text-auri-muted">{row.patientsImpacted}</td>
@@ -344,7 +344,7 @@ function ImpactOutcomes() {
         <SectionHeader icon={TrendingUp} title="Return on Medical Investment (ROMI)" subtitle="quarterly business-review framing" />
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="rounded-lg border border-auri-border bg-auri-card p-4 text-center">
-            <div className="text-2xl font-semibold text-auri-blue">{romi.netValueCreated}</div>
+            <div className="text-2xl font-semibold text-auri-text">{romi.netValueCreated}</div>
             <div className="text-[11px] text-auri-muted mt-1">Net value created</div>
           </div>
           <div className="rounded-lg border border-auri-border bg-auri-card p-4 text-center">
@@ -399,7 +399,7 @@ export default function Vega() {
               onClick={() => setActiveTab(t.id)}
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
                 isActive
-                  ? 'border-auri-blue text-auri-blue'
+                  ? 'border-auri-text text-auri-text'
                   : 'border-transparent text-auri-muted hover:text-auri-text'
               }`}
             >

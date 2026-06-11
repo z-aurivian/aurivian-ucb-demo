@@ -21,7 +21,7 @@ function ArtifactCard({ a }) {
   const meta = TYPE_META[a.type] || TYPE_META.pdf;
   const Icon = meta.icon;
   return (
-    <div className="rounded-xl border border-auri-border bg-auri-bg p-5 hover:border-auri-blue/40 hover:shadow-sm transition-all">
+    <div className="rounded-xl border border-auri-border bg-auri-bg p-5 hover:border-auri-text/40 hover:shadow-sm transition-all">
       <div className="flex items-start gap-3 mb-3">
         <div className={`w-10 h-10 rounded-lg border ${meta.accent} flex items-center justify-center shrink-0`}>
           <Icon size={18} />
@@ -60,11 +60,11 @@ function ArtifactCard({ a }) {
       </div>
 
       <div className="flex items-center gap-2 pt-3 border-t border-auri-border">
-        <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-auri-blue text-white text-xs font-medium hover:bg-auri-blue/90 transition-all">
+        <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-auri-text text-auri-bg text-xs font-medium hover:bg-auri-text/90 transition-all">
           <Download size={12} />
           {a.type === 'interactive' ? 'Open' : 'Download'}
         </button>
-        <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-auri-border text-auri-muted text-xs hover:text-auri-text hover:border-auri-blue/50 transition-all">
+        <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-auri-border text-auri-muted text-xs hover:text-auri-text hover:border-auri-text/50 transition-all">
           <Share2 size={12} />
           Share
         </button>
@@ -126,7 +126,7 @@ export default function ArtifactLibrary() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search artifacts, sources, or task types…"
-            className="w-full pl-9 pr-3 py-2 rounded-lg border border-auri-border bg-auri-bg text-sm text-auri-text placeholder:text-auri-muted/60 focus:outline-none focus:border-auri-blue"
+            className="w-full pl-9 pr-3 py-2 rounded-lg border border-auri-border bg-auri-bg text-sm text-auri-text placeholder:text-auri-muted/60 focus:outline-none focus:border-auri-text"
           />
         </div>
 
@@ -136,7 +136,7 @@ export default function ArtifactLibrary() {
               key={v}
               onClick={() => setAgentFilter(v)}
               className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
-                agentFilter === v ? 'bg-auri-blue/10 text-auri-blue' : 'text-auri-muted hover:text-auri-text'
+                agentFilter === v ? 'bg-auri-text text-auri-bg' : 'text-auri-muted hover:text-auri-text'
               }`}
             >
               {v === 'all' ? 'All agents' : v}
@@ -155,7 +155,7 @@ export default function ArtifactLibrary() {
               key={v.id}
               onClick={() => setTypeFilter(v.id)}
               className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
-                typeFilter === v.id ? 'bg-auri-blue/10 text-auri-blue' : 'text-auri-muted hover:text-auri-text'
+                typeFilter === v.id ? 'bg-auri-text text-auri-bg' : 'text-auri-muted hover:text-auri-text'
               }`}
             >
               {v.label}

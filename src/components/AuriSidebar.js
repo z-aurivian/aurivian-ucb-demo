@@ -33,7 +33,7 @@ export default function AuriSidebar({ selectedProduct }) {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-4 py-3 rounded-full bg-auri-blue text-white shadow-lg hover:bg-auri-blue/90 transition-all"
+          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-4 py-3 rounded-full bg-auri-text text-auri-bg shadow-lg hover:bg-auri-text/90 transition-all"
           aria-label="Open Auri chat"
         >
           <Sparkles size={18} />
@@ -59,8 +59,8 @@ export default function AuriSidebar({ selectedProduct }) {
       >
         <header className="flex items-center justify-between px-4 py-3 border-b border-auri-border">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-auri-blue/10 flex items-center justify-center">
-              <Sparkles size={14} className="text-auri-blue" />
+            <div className="w-7 h-7 rounded-lg bg-auri-text/10 flex items-center justify-center">
+              <Sparkles size={14} className="text-auri-text" />
             </div>
             <div>
               <div className="font-michroma text-auri-text text-sm tracking-wider">AURI</div>
@@ -69,7 +69,7 @@ export default function AuriSidebar({ selectedProduct }) {
           </div>
           <div className="flex items-center gap-2">
             {product && (
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-auri-blue/30 bg-auri-blue/10 text-auri-blue">
+              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-auri-text/30 bg-auri-text/10 text-auri-text">
                 Scope: {product.name}
               </span>
             )}

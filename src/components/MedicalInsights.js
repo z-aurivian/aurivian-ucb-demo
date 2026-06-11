@@ -32,7 +32,7 @@ function MedicalInsights() {
               onClick={() => setActiveTab(t.id)}
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
                 isActive
-                  ? 'border-auri-blue text-auri-blue'
+                  ? 'border-auri-text text-auri-text'
                   : 'border-transparent text-auri-muted hover:text-auri-text'
               }`}
             >

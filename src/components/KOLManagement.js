@@ -59,7 +59,7 @@ function KOLManagement({ selectedProduct }) {
 
   const tierColor = (tier) => {
     switch (tier) {
-      case 'Tier 1': return 'bg-auri-blue/10 text-auri-blue';
+      case 'Tier 1': return 'bg-auri-text/10 text-auri-text';
       case 'Tier 2': return 'bg-emerald-50 text-emerald-600';
       case 'Tier 3': return 'bg-auri-card text-auri-muted';
       default: return 'bg-auri-card text-auri-muted';
@@ -73,11 +73,11 @@ function KOLManagement({ selectedProduct }) {
       {/* Summary Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div className="bg-auri-card rounded-lg p-4 border border-auri-border">
-          <div className="text-2xl font-bold text-auri-blue">{stats.total}</div>
+          <div className="text-2xl font-bold text-auri-text">{stats.total}</div>
           <div className="text-xs text-auri-muted mt-1">KOLs Tracked ({productName})</div>
         </div>
         <div className="bg-auri-card rounded-lg p-4 border border-auri-border">
-          <div className="text-2xl font-bold text-auri-blue">{stats.tier1}</div>
+          <div className="text-2xl font-bold text-auri-text">{stats.tier1}</div>
           <div className="text-xs text-auri-muted mt-1">Tier 1 (Strategic)</div>
         </div>
         <div className="bg-auri-card rounded-lg p-4 border border-auri-border">
@@ -104,12 +104,12 @@ function KOLManagement({ selectedProduct }) {
               placeholder="Search KOLs by name, institution, or focus area..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text placeholder:text-auri-muted/60 focus:outline-none focus:border-auri-blue/50"
+              className="w-full pl-10 pr-4 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text placeholder:text-auri-muted/60 focus:outline-none focus:border-auri-text/50"
             />
           </div>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm border transition ${showFilters ? 'bg-auri-blue/10 border-auri-blue/50 text-auri-blue' : 'border-auri-border text-auri-muted hover:text-auri-text'}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm border transition ${showFilters ? 'bg-auri-text border-auri-text text-auri-bg' : 'border-auri-border text-auri-muted hover:text-auri-text'}`}
           >
             <Filter size={16} /> Filters
           </button>
@@ -118,19 +118,19 @@ function KOLManagement({ selectedProduct }) {
         {showFilters && (
           <div className="flex flex-wrap gap-4 pt-2 border-t border-auri-border">
             <select value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)}
-              className="px-3 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text focus:outline-none focus:border-auri-blue/50">
+              className="px-3 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text focus:outline-none focus:border-auri-text/50">
               <option value="all">All Specialties</option>
               {specialties.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
             <select value={selectedTier} onChange={(e) => setSelectedTier(e.target.value)}
-              className="px-3 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text focus:outline-none focus:border-auri-blue/50">
+              className="px-3 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text focus:outline-none focus:border-auri-text/50">
               <option value="all">All Tiers</option>
               <option value="Tier 1">Tier 1</option>
               <option value="Tier 2">Tier 2</option>
               <option value="Tier 3">Tier 3</option>
             </select>
             <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}
-              className="px-3 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text focus:outline-none focus:border-auri-blue/50">
+              className="px-3 py-2 bg-auri-bg border border-auri-border rounded-lg text-sm text-auri-text focus:outline-none focus:border-auri-text/50">
               <option value="all">All Regions</option>
               {regions.map(r => <option key={r} value={r}>{r}</option>)}
             </select>
@@ -191,7 +191,7 @@ function KOLManagement({ selectedProduct }) {
                             <td colSpan={9} className="px-4 py-4 bg-auri-card">
                               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 animate-fade-in">
                                 <div className="space-y-3">
-                                  <h4 className="text-xs font-semibold text-auri-blue uppercase tracking-wider">Profile</h4>
+                                  <h4 className="text-xs font-semibold text-auri-text uppercase tracking-wider">Profile</h4>
                                   <div className="space-y-2 text-sm">
                                     <div className="flex items-center gap-2 text-auri-muted"><MapPin size={14} /> {kol.city}, {kol.country}</div>
                                     <div className="flex items-center gap-2 text-auri-muted"><Globe size={14} /> {kol.region}</div>
@@ -199,10 +199,10 @@ function KOLManagement({ selectedProduct }) {
                                     <div className="flex items-center gap-2 text-auri-muted"><Users size={14} /> Products: {kol.productAlignment.map(p => PRODUCT_OPTIONS.find(o => o.id === p)?.name).join(', ')}</div>
                                     <div className="flex items-center gap-2 text-auri-muted"><BookOpen size={14} /> {kol.publications} peer-reviewed publications</div>
                                   </div>
-                                  <h4 className="text-xs font-semibold text-auri-blue uppercase tracking-wider mt-4">Focus Areas</h4>
+                                  <h4 className="text-xs font-semibold text-auri-text uppercase tracking-wider mt-4">Focus Areas</h4>
                                   <div className="flex flex-wrap gap-2">
                                     {kol.focusAreas.map((area, i) => (
-                                      <span key={i} className="px-2 py-1 bg-auri-blue/10 text-auri-blue rounded text-xs">{area}</span>
+                                      <span key={i} className="px-2 py-1 bg-auri-text/10 text-auri-text rounded text-xs">{area}</span>
                                     ))}
                                   </div>
                                 </div>
@@ -210,7 +210,7 @@ function KOLManagement({ selectedProduct }) {
                                 {/* Medical Messaging Alignment — Vision Doc Module 3 */}
                                 <div className="space-y-3 lg:col-span-2">
                                   <div className="flex items-center justify-between">
-                                    <h4 className="text-xs font-semibold text-auri-blue uppercase tracking-wider flex items-center gap-2">
+                                    <h4 className="text-xs font-semibold text-auri-text uppercase tracking-wider flex items-center gap-2">
                                       <Target size={12} /> Medical Messaging Alignment
                                     </h4>
                                     {alignment && (
@@ -238,7 +238,7 @@ function KOLManagement({ selectedProduct }) {
                                       </div>
                                     </>
                                   )}
-                                  <h4 className="text-xs font-semibold text-auri-blue uppercase tracking-wider mt-4">Engagement Strategy</h4>
+                                  <h4 className="text-xs font-semibold text-auri-text uppercase tracking-wider mt-4">Engagement Strategy</h4>
                                   <p className="text-sm text-auri-muted leading-relaxed">{kol.recommendedStrategy}</p>
                                 </div>
                               </div>

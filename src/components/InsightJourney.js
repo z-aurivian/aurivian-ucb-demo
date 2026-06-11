@@ -88,12 +88,12 @@ function InsightCard({ insight, pinned }) {
     <button
       onClick={() => navigate('/insights')}
       title="Open in NOVA · Strategy-to-Action"
-      className={`w-full text-left rounded-lg border bg-auri-bg p-3 hover:shadow-sm transition-all group ${pinned ? 'border-auri-blue/60 ring-1 ring-auri-blue/30 hover:border-auri-blue' : 'border-auri-border hover:border-auri-blue/50'}`}
+      className={`w-full text-left rounded-lg border bg-auri-bg p-3 hover:shadow-sm transition-all group ${pinned ? 'border-auri-text/60 ring-1 ring-auri-text/30 hover:border-auri-text' : 'border-auri-border hover:border-auri-text/50'}`}
     >
       {/* Pinned-from-NOVA pill */}
       {pinned && (
-        <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-auri-blue/20">
-          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-auri-blue">
+        <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-auri-text/20">
+          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-auri-text">
             <GitBranch size={11} /> Just added from NOVA
           </span>
           <span
@@ -129,7 +129,7 @@ function InsightCard({ insight, pinned }) {
           <span key={lp} className="text-[9px] font-medium px-1.5 py-0.5 rounded border bg-auri-card text-auri-muted border-auri-border">{lp}</span>
         ))}
         {insight.moRefs?.map(mo => (
-          <span key={mo} className="text-[9px] font-medium px-1.5 py-0.5 rounded border bg-auri-blue/5 text-auri-blue border-auri-blue/20">{mo}</span>
+          <span key={mo} className="text-[9px] font-medium px-1.5 py-0.5 rounded border bg-auri-text/5 text-auri-text border-auri-text/20">{mo}</span>
         ))}
       </div>
 
@@ -169,7 +169,7 @@ function SignalCard({ signal }) {
   return (
     <button
       onClick={() => navigate(signal.suggestedAction?.path || '/')}
-      className="w-full text-left rounded-lg border border-dashed border-auri-border bg-auri-bg p-3 hover:border-auri-blue/50 hover:shadow-sm transition-all"
+      className="w-full text-left rounded-lg border border-dashed border-auri-border bg-auri-bg p-3 hover:border-auri-text/50 hover:shadow-sm transition-all"
     >
       <div className="flex items-center gap-2 mb-1.5">
         <Radio size={11} className="text-auri-muted" />

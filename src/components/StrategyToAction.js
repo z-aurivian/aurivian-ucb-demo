@@ -71,7 +71,7 @@ function SectionHeader({ icon: Icon, label, sub, right }) {
   return (
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2">
-        <Icon size={16} className="text-auri-blue" />
+        <Icon size={16} className="text-auri-text" />
         <h3 className="text-sm font-semibold text-auri-text uppercase tracking-wider">{label}</h3>
         {sub && <span className="text-xs text-auri-muted">{sub}</span>}
       </div>
@@ -188,7 +188,7 @@ function InsightCard({ insight }) {
   };
 
   return (
-    <div className={`rounded-xl border bg-auri-bg overflow-hidden transition-all ${pinned ? 'border-auri-blue/60 ring-1 ring-auri-blue/30' : 'border-auri-border'}`}>
+    <div className={`rounded-xl border bg-auri-bg overflow-hidden transition-all ${pinned ? 'border-auri-text/60 ring-1 ring-auri-text/30' : 'border-auri-border'}`}>
       <button
         onClick={() => setOpen(!open)}
         className="w-full text-left p-4 hover:bg-auri-card transition-colors"
@@ -204,11 +204,11 @@ function InsightCard({ insight }) {
                 <span key={lp} className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-card text-auri-muted border-auri-border">{lp}</span>
               ))}
               {insight.moRefs?.map(mo => (
-                <span key={mo} className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-blue/5 text-auri-blue border-auri-blue/20">{mo}</span>
+                <span key={mo} className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-text/5 text-auri-text border-auri-text/20">{mo}</span>
               ))}
               <span className={`text-[10px] font-medium px-2 py-0.5 rounded border ${STATUS_STYLE[insight.status] || ''}`}>{insight.status}</span>
               {pinned && (
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-blue/10 text-auri-blue border-auri-blue/30 inline-flex items-center gap-1">
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-text/10 text-auri-text border-auri-text/30 inline-flex items-center gap-1">
                   <GitBranch size={10} /> On Insight Journey
                 </span>
               )}
@@ -228,8 +228,8 @@ function InsightCard({ insight }) {
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handlePinClick(e); }}
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium border transition-all cursor-pointer ${
                 pinned
-                  ? 'bg-auri-blue/10 text-auri-blue border-auri-blue/30 hover:bg-auri-blue/15'
-                  : 'bg-auri-bg text-auri-muted border-auri-border hover:text-auri-text hover:border-auri-blue/50'
+                  ? 'bg-auri-text text-auri-bg border-auri-text'
+                  : 'bg-auri-bg text-auri-muted border-auri-border hover:text-auri-text hover:border-auri-text/50'
               }`}
             >
               {pinned ? <><Check size={12} /> Added to Journey</> : <><GitBranch size={12} /> Add to Insight Journey</>}
@@ -303,13 +303,13 @@ function ActionsBoard() {
     <div className="flex items-center gap-1 text-xs">
       <button
         onClick={() => setGroupBy('mo')}
-        className={`px-2.5 py-1 rounded-md transition-all ${groupBy === 'mo' ? 'bg-auri-blue/10 text-auri-blue font-medium' : 'text-auri-muted hover:text-auri-text'}`}
+        className={`px-2.5 py-1 rounded-md transition-all ${groupBy === 'mo' ? 'bg-auri-text text-auri-bg font-medium' : 'text-auri-muted hover:text-auri-text'}`}
       >
         by MO
       </button>
       <button
         onClick={() => setGroupBy('status')}
-        className={`px-2.5 py-1 rounded-md transition-all ${groupBy === 'status' ? 'bg-auri-blue/10 text-auri-blue font-medium' : 'text-auri-muted hover:text-auri-text'}`}
+        className={`px-2.5 py-1 rounded-md transition-all ${groupBy === 'status' ? 'bg-auri-text text-auri-bg font-medium' : 'text-auri-muted hover:text-auri-text'}`}
       >
         by status
       </button>
@@ -348,7 +348,7 @@ function ActionsBoard() {
                         </span>
                       )}
                       {groupBy !== 'mo' && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-blue/5 text-auri-blue border-auri-blue/20">{a.moRef}</span>
+                        <span className="text-[10px] font-medium px-2 py-0.5 rounded border bg-auri-text/5 text-auri-text border-auri-text/20">{a.moRef}</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-auri-muted">
@@ -375,9 +375,9 @@ function GapRadarSection() {
         {GAP_RADAR.map((g, idx) => (
           <div key={idx} className="rounded-xl border border-auri-border bg-auri-bg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-auri-blue">{g.type}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-auri-text">{g.type}</span>
               {g.moRef && (
-                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded border bg-auri-blue/5 text-auri-blue border-auri-blue/20">{g.moRef}</span>
+                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded border bg-auri-text/5 text-auri-text border-auri-text/20">{g.moRef}</span>
               )}
             </div>
             <div className="text-sm text-auri-text font-medium mb-1.5 leading-snug">{g.suggestion}</div>

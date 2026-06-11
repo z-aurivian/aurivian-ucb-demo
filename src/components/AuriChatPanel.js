@@ -18,7 +18,7 @@ function CitationChip({ cite }) {
   return (
     <span
       title="Source in your Intelligence Layer"
-      className="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded border bg-auri-blue/5 text-auri-blue border-auri-blue/20"
+      className="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded border bg-auri-text/5 text-auri-text border-auri-text/20"
     >
       <ShieldCheck size={10} />
       {label}
@@ -114,8 +114,8 @@ export default function AuriChatPanel({
       <div className="flex-1 overflow-y-auto space-y-4 pb-4 px-1">
         {empty && showIntro ? (
           <div className={`flex flex-col items-center justify-center text-center px-4 ${compact ? 'pt-6' : 'h-full'}`}>
-            <div className={`${compact ? 'w-10 h-10 mb-3' : 'w-16 h-16 mb-6'} bg-auri-blue/10 rounded-2xl flex items-center justify-center`}>
-              <Sparkles size={compact ? 20 : 32} className="text-auri-blue" />
+            <div className={`${compact ? 'w-10 h-10 mb-3' : 'w-16 h-16 mb-6'} bg-auri-text/10 rounded-2xl flex items-center justify-center`}>
+              <Sparkles size={compact ? 20 : 32} className="text-auri-text" />
             </div>
             <h2 className={`${compact ? 'text-base' : 'text-2xl'} font-semibold text-auri-text mb-1 font-michroma`}>
               {compact ? 'Auri' : 'Auri Intelligence'}
@@ -123,7 +123,7 @@ export default function AuriChatPanel({
             {!compact && (
               <p className="text-auri-muted mb-6 max-w-lg text-sm">
                 Grounded in your Intelligence Layer for {CLIENT.name}
-                {productName ? <> — currently scoped to <span className="text-auri-blue font-medium">{productName}</span></> : null}.
+                {productName ? <> — currently scoped to <span className="text-auri-text font-medium">{productName}</span></> : null}.
               </p>
             )}
             {compact && (
@@ -136,7 +136,7 @@ export default function AuriChatPanel({
                 <button
                   key={i}
                   onClick={() => handleSend(q)}
-                  className="text-left px-3 py-2 bg-auri-card border border-auri-border rounded-lg text-xs text-auri-muted hover:text-auri-text hover:border-auri-blue/30 hover:bg-auri-blue/5 transition-all"
+                  className="text-left px-3 py-2 bg-auri-card border border-auri-border rounded-lg text-xs text-auri-muted hover:text-auri-text hover:border-auri-text/30 hover:bg-auri-text/5 transition-all"
                 >
                   {q}
                 </button>
@@ -147,14 +147,14 @@ export default function AuriChatPanel({
           messages.map((msg, i) => (
             <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.role === 'assistant' && (
-                <div className="w-8 h-8 bg-auri-blue/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                  <Bot size={16} className="text-auri-blue" />
+                <div className="w-8 h-8 bg-auri-text/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <Bot size={16} className="text-auri-text" />
                 </div>
               )}
               <div
                 className={`max-w-[85%] rounded-lg px-3 py-2.5 ${
                   msg.role === 'user'
-                    ? 'bg-auri-blue text-white'
+                    ? 'bg-auri-text text-auri-bg'
                     : 'bg-auri-card border border-auri-border text-auri-text'
                 }`}
               >
@@ -184,11 +184,11 @@ export default function AuriChatPanel({
 
         {isLoading && (
           <div className="flex gap-3">
-            <div className="w-8 h-8 bg-auri-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Bot size={16} className="text-auri-blue" />
+            <div className="w-8 h-8 bg-auri-text/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Bot size={16} className="text-auri-text" />
             </div>
             <div className="bg-auri-card border border-auri-border rounded-lg px-4 py-3">
-              <Loader2 size={16} className="text-auri-blue animate-spin" />
+              <Loader2 size={16} className="text-auri-text animate-spin" />
             </div>
           </div>
         )}
@@ -204,7 +204,7 @@ export default function AuriChatPanel({
               onClick={() => setMessages([])}
               disabled={isLoading}
               title="New conversation"
-              className="px-2.5 py-2.5 border border-auri-border rounded-lg text-auri-muted hover:text-auri-text hover:border-auri-blue/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+              className="px-2.5 py-2.5 border border-auri-border rounded-lg text-auri-muted hover:text-auri-text hover:border-auri-text/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
             >
               <RotateCcw size={14} />
             </button>
@@ -217,16 +217,16 @@ export default function AuriChatPanel({
               onKeyDown={handleKeyDown}
               placeholder="Ask Auri…"
               rows={1}
-              className="w-full px-3 py-2.5 bg-auri-card border border-auri-border rounded-lg text-sm text-auri-text placeholder:text-auri-muted/60 focus:outline-none focus:border-auri-blue/50 resize-none"
+              className="w-full px-3 py-2.5 bg-auri-card border border-auri-border rounded-lg text-sm text-auri-text placeholder:text-auri-muted/60 focus:outline-none focus:border-auri-text/50 resize-none"
               style={{ minHeight: '40px', maxHeight: '120px' }}
             />
           </div>
           <button
             onClick={() => handleSend()}
             disabled={!input.trim() || isLoading}
-            className="px-3 py-2.5 bg-auri-blue rounded-lg hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            className="px-3 py-2.5 bg-auri-text rounded-lg hover:bg-auri-text/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           >
-            <Send size={14} className="text-white" />
+            <Send size={14} className="text-auri-bg" />
           </button>
         </div>
       </div>

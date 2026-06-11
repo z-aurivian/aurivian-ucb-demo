@@ -17,7 +17,7 @@ function ExportButton() {
   return (
     <button
       onClick={() => window.alert('Export to PowerPoint — coming soon. Each KIT card and table will export as a formatted slide.')}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-blue/50 transition-all"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-text/50 transition-all"
     >
       <FileDown size={13} />
       Export to PPT
@@ -55,7 +55,7 @@ export default function KITPerformance() {
       <div className="bg-auri-bg border border-auri-border rounded-xl p-5">
         <div className="flex items-end justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <Activity size={16} className="text-auri-blue" />
+            <Activity size={16} className="text-auri-text" />
             <h3 className="text-sm font-semibold text-auri-text">KIT Scorecard</h3>
             <span className="text-xs text-auri-muted">month-on-month</span>
           </div>
@@ -91,7 +91,7 @@ export default function KITPerformance() {
                     <td className="py-2 pr-4">
                       <div className="flex items-center gap-2">
                         <div className="w-16 h-1.5 bg-auri-card rounded-full overflow-hidden">
-                          <div className="h-full bg-auri-blue" style={{ width: `${kit.relevanceScore}%` }} />
+                          <div className="h-full bg-auri-text" style={{ width: `${kit.relevanceScore}%` }} />
                         </div>
                         <span className="text-xs text-auri-muted">{kit.relevanceScore}</span>
                       </div>
@@ -113,7 +113,7 @@ export default function KITPerformance() {
       <div className="bg-auri-bg border border-auri-border rounded-xl p-5">
         <div className="flex items-end justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <Brain size={16} className="text-auri-blue" />
+            <Brain size={16} className="text-auri-text" />
             <h3 className="text-sm font-semibold text-auri-text">KIT Insight Analysis</h3>
             <span className="text-xs text-auri-muted">current vs prior month</span>
           </div>
@@ -129,7 +129,7 @@ export default function KITPerformance() {
                   className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left hover:bg-auri-card transition-all"
                 >
                   <div className="flex items-center gap-2 min-w-0">
-                    <Zap size={14} className="text-auri-blue shrink-0" />
+                    <Zap size={14} className="text-auri-text shrink-0" />
                     <span className="text-sm font-medium text-auri-text truncate">{kit.name}</span>
                   </div>
                   {isOpen ? <ChevronUp size={16} className="text-auri-muted shrink-0" /> : <ChevronDown size={16} className="text-auri-muted shrink-0" />}
@@ -137,7 +137,7 @@ export default function KITPerformance() {
                 {isOpen && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 border-t border-auri-border bg-auri-card">
                     <div className="rounded-lg bg-auri-bg p-3 border border-auri-border">
-                      <div className="text-[10px] uppercase tracking-wider text-auri-blue font-semibold mb-1.5">Current Month</div>
+                      <div className="text-[10px] uppercase tracking-wider text-auri-text font-semibold mb-1.5">Current Month</div>
                       <p className="text-xs text-auri-text leading-relaxed">{kit.aiSummaryCurrent}</p>
                     </div>
                     <div className="rounded-lg bg-auri-bg p-3 border border-auri-border">
@@ -156,7 +156,7 @@ export default function KITPerformance() {
       <div className="bg-auri-bg border border-auri-border rounded-xl p-5">
         <div className="flex items-end justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <TrendingUp size={16} className="text-auri-blue" />
+            <TrendingUp size={16} className="text-auri-text" />
             <h3 className="text-sm font-semibold text-auri-text">Emerging Themes</h3>
             <span className="text-xs text-auri-muted">growth-ranked</span>
           </div>
@@ -183,7 +183,7 @@ export default function KITPerformance() {
                     <td className="py-2 pr-4 text-auri-text font-medium">{t.theme}</td>
                     <td className={`py-2 pr-4 ${heat}`}>+{t.growthRate}%</td>
                     <td className="py-2 pr-4 text-auri-muted">{t.firstDetected}</td>
-                    <td className="py-2 pr-4 text-auri-blue">{t.relatedKIT}</td>
+                    <td className="py-2 pr-4 text-auri-text">{t.relatedKIT}</td>
                     <td className="py-2 text-auri-muted text-xs leading-snug max-w-md">{t.description}</td>
                   </tr>
                 );

@@ -6,7 +6,7 @@ function ExportButton() {
   return (
     <button
       onClick={() => window.alert('Export to PowerPoint — coming soon. Source value matrix and impact lineage will export as formatted slides.')}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-blue/50 transition-all"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-text/50 transition-all"
     >
       <FileDown size={13} />
       Export to PPT
@@ -21,7 +21,7 @@ export default function InsightSources() {
       <div className="bg-auri-bg border border-auri-border rounded-xl p-5">
         <div className="flex items-end justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <Target size={16} className="text-auri-blue" />
+            <Target size={16} className="text-auri-text" />
             <h3 className="text-sm font-semibold text-auri-text">Insight Source Value Matrix</h3>
             <span className="text-xs text-auri-muted">volume · quality · ROI</span>
           </div>
@@ -72,7 +72,7 @@ export default function InsightSources() {
       <div className="bg-auri-bg border border-auri-border rounded-xl p-5">
         <div className="flex items-end justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <Zap size={16} className="text-auri-blue" />
+            <Zap size={16} className="text-auri-text" />
             <h3 className="text-sm font-semibold text-auri-text">Insight-to-Impact Tracking</h3>
             <span className="text-xs text-auri-muted">insight → action → outcome</span>
           </div>
@@ -85,8 +85,8 @@ export default function InsightSources() {
               : 'bg-rose-50 text-rose-700 border-rose-200';
             return (
               <div key={item.id} className="rounded-xl border border-auri-border p-4 space-y-3">
-                <div className="rounded-lg bg-auri-blue/5 border border-auri-blue/20 p-3">
-                  <div className="text-[10px] uppercase tracking-wider text-auri-blue font-semibold mb-1">Insight</div>
+                <div className="rounded-lg bg-auri-text/5 border border-auri-text/20 p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-auri-text font-semibold mb-1">Insight</div>
                   <p className="text-xs text-auri-text leading-relaxed">{item.insight}</p>
                 </div>
                 <div className="flex justify-center">

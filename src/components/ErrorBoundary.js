@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component {
             <p className="text-auri-gray mb-6">{this.state.error?.message}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-auri-blue text-white rounded-lg hover:bg-blue-600 transition"
+              className="px-6 py-2 bg-auri-text text-auri-bg rounded-lg hover:bg-auri-text/90 transition"
             >
               Reload
             </button>

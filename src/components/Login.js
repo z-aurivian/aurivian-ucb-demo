@@ -47,7 +47,7 @@ export default function Login({ onAuthenticated }) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
                 required
-                className="w-full px-3 py-2.5 rounded-lg border border-auri-border bg-auri-card text-sm text-auri-text focus:outline-none focus:border-auri-blue"
+                className="w-full px-3 py-2.5 rounded-lg border border-auri-border bg-auri-card text-sm text-auri-text focus:outline-none focus:border-auri-text"
               />
             </div>
             <div>
@@ -58,13 +58,13 @@ export default function Login({ onAuthenticated }) {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full px-3 py-2.5 rounded-lg border border-auri-border bg-auri-card text-sm text-auri-text focus:outline-none focus:border-auri-blue"
+                className="w-full px-3 py-2.5 rounded-lg border border-auri-border bg-auri-card text-sm text-auri-text focus:outline-none focus:border-auri-text"
               />
             </div>
             <button
               type="submit"
               disabled={submitting}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-auri-blue text-white text-sm font-medium hover:bg-auri-blue/90 transition-all disabled:opacity-60"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-auri-text text-auri-bg text-sm font-medium hover:bg-auri-text/90 transition-all disabled:opacity-60"
             >
               {submitting ? 'Signing in…' : (<>Sign in <ArrowRight size={16} /></>)}
             </button>
@@ -72,7 +72,7 @@ export default function Login({ onAuthenticated }) {
 
           {/* Sovereign deployment cue */}
           <div className="mt-6 pt-5 border-t border-auri-border flex items-center gap-2 text-xs text-auri-muted">
-            <Shield size={14} className="text-auri-blue" />
+            <Shield size={14} className="text-auri-text" />
             <span>
               Deployed inside <span className="text-auri-text font-medium">{CLIENT?.cloudLabel || 'your cloud'}</span>. Data never leaves your environment.
             </span>

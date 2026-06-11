@@ -16,7 +16,7 @@ export default function ExportPPTButton({ label = 'Export to PPT', surface = 'th
   return (
     <button
       onClick={handleClick}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-blue/50 transition-all"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-auri-border text-auri-muted hover:text-auri-text hover:border-auri-text/50 transition-all"
     >
       <FileDown size={13} />
       {label}

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {
   Send, Sparkles,
   Activity, Microscope, Users as UsersIcon, BarChart3,
-  Radar, ArrowUpRight, TrendingUp, TrendingDown, Zap, Flame,
+  ArrowUpRight, TrendingUp, TrendingDown,
   ChevronDown, ChevronUp,
 } from 'lucide-react';
 import {
@@ -72,7 +72,7 @@ export default function CommandCenter() {
           input's own framing carries the intent without extra copy. */}
       <div className="bg-auri-bg border border-auri-border rounded-xl p-5">
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles size={16} className="text-auri-blue" />
+          <Sparkles size={16} className="text-auri-text" />
           <span className="text-sm font-medium text-auri-text">
             {CLIENT?.name ? `${CLIENT.name} — ` : ''}what would you like to direct?
           </span>
@@ -89,11 +89,11 @@ export default function CommandCenter() {
             value={directiveInput}
             onChange={(e) => setDirectiveInput(e.target.value)}
             placeholder='e.g. "Summarise the most important signals from the last congress cycle."'
-            className="flex-1 px-4 py-3 rounded-lg border border-auri-border bg-auri-card text-sm text-auri-text focus:outline-none focus:border-auri-blue"
+            className="flex-1 px-4 py-3 rounded-lg border border-auri-border bg-auri-card text-sm text-auri-text focus:outline-none focus:border-auri-text"
           />
           <button
             type="submit"
-            className="flex items-center gap-2 px-4 py-3 rounded-lg bg-auri-blue text-white text-sm font-medium hover:bg-auri-blue/90 transition-all"
+            className="flex items-center gap-2 px-4 py-3 rounded-lg bg-auri-text text-auri-bg text-sm font-medium hover:bg-auri-text/90 transition-all"
           >
             <Send size={16} />
             Direct
@@ -112,11 +112,11 @@ export default function CommandCenter() {
               <NavLink
                 key={a.id}
                 to={a.path}
-                className="bg-auri-bg border border-auri-border rounded-xl p-5 hover:border-auri-blue/50 hover:shadow-sm transition-all block"
+                className="bg-auri-bg border border-auri-border rounded-xl p-5 hover:border-auri-text/50 hover:shadow-sm transition-all block"
               >
                 <div className="flex items-center justify-between gap-3 mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-auri-blue/10 text-auri-blue flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-auri-text/10 text-auri-text flex items-center justify-center">
                       <Icon size={20} />
                     </div>
                     <div>
@@ -149,7 +149,7 @@ export default function CommandCenter() {
             className="w-full flex items-center justify-between gap-3 p-5 text-left hover:bg-auri-card/50 transition-all rounded-xl"
           >
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-s-new animate-pulse" />
               <h3 className="text-sm font-semibold text-auri-text">Predictive Signals</h3>
               <span className="text-xs text-auri-muted">always listening</span>
             </div>
@@ -172,7 +172,7 @@ export default function CommandCenter() {
                 <NavLink
                   key={s.id}
                   to={s.suggestedAction?.path || '/'}
-                  className="block p-3 rounded-lg border border-auri-border hover:border-auri-blue/40 hover:bg-auri-card transition-all"
+                  className="block p-3 rounded-lg border border-auri-border hover:border-auri-text/40 hover:bg-auri-card transition-all"
                 >
                   <div className="flex items-start justify-between gap-2 mb-1.5">
                     <div className="flex items-center gap-2 min-w-0">
@@ -197,7 +197,7 @@ export default function CommandCenter() {
           {hiddenSignalsCount > 0 && (
             <button
               onClick={() => setSignalsExpanded(!signalsExpanded)}
-              className="mt-3 text-xs text-auri-blue hover:underline"
+              className="mt-3 text-xs text-auri-text hover:underline"
             >
               {signalsExpanded ? 'Show less' : `View all (${PREDICTIVE_SIGNALS.length})`}
             </button>
@@ -214,7 +214,7 @@ export default function CommandCenter() {
             className="w-full flex items-center justify-between gap-3 p-5 text-left hover:bg-auri-card/50 transition-all rounded-xl"
           >
             <div className="flex items-center gap-2">
-              <Zap size={14} className="text-auri-blue" />
+              <div className="w-2 h-2 rounded-full bg-s-info" />
               <h3 className="text-sm font-semibold text-auri-text">KIT Metrics</h3>
               <span className="text-xs text-auri-muted">· Insight-to-Impact</span>
             </div>
@@ -223,7 +223,7 @@ export default function CommandCenter() {
           {openTiles.kit && (
           <div className="px-5 pb-5">
           <div className="mb-3 -mt-1">
-            <NavLink to="/insights" className="text-xs text-auri-blue hover:underline">
+            <NavLink to="/insights" className="text-xs text-auri-text hover:underline">
               Open NOVA →
             </NavLink>
           </div>
@@ -235,7 +235,7 @@ export default function CommandCenter() {
               <span className="text-auri-text font-medium">{consumedPct}% consumed</span>
             </div>
             <div className="h-2 bg-auri-card rounded-full overflow-hidden">
-              <div className="h-full bg-auri-blue" style={{ width: `${consumedPct}%` }} />
+              <div className="h-full bg-auri-text" style={{ width: `${consumedPct}%` }} />
             </div>
             <div className="flex items-center justify-between text-[11px] text-auri-muted mt-1">
               <span>{OUTCOME_VOLUME.consumed.toLocaleString()} results delivered</span>
@@ -254,7 +254,7 @@ export default function CommandCenter() {
                   <div className="flex-1 min-w-0">
                     <div className="text-sm text-auri-text truncate">{kit.name}</div>
                     <div className="h-1.5 bg-auri-card rounded-full overflow-hidden mt-1">
-                      <div className="h-full bg-auri-blue" style={{ width: `${kit.relevanceScore}%` }} />
+                      <div className="h-full bg-auri-text" style={{ width: `${kit.relevanceScore}%` }} />
                     </div>
                   </div>
                   <span className={`flex items-center gap-0.5 text-[11px] font-medium ${trendColor} shrink-0 w-12 justify-end`}>
@@ -272,7 +272,7 @@ export default function CommandCenter() {
           {/* Insight-to-Impact — featured one */}
           {featuredImpact && (
             <div className="rounded-lg border border-auri-border bg-auri-card p-3">
-              <div className="text-[10px] uppercase tracking-wider text-auri-blue font-semibold mb-1.5 flex items-center gap-2">
+              <div className="text-[10px] uppercase tracking-wider text-auri-text font-semibold mb-1.5 flex items-center gap-2">
                 <span>Insight → Action → Outcome</span>
                 <span className="text-auri-muted normal-case tracking-normal">· {featuredImpact.timeframe}</span>
                 <span className="ml-auto text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">Impact {featuredImpact.impactScore}/10</span>
@@ -301,7 +301,7 @@ export default function CommandCenter() {
               className="w-full flex items-center justify-between gap-3 p-5 text-left hover:bg-auri-card/50 transition-all rounded-xl"
             >
               <div className="flex items-center gap-2">
-                <Radar size={14} className="text-auri-blue" />
+                <div className="w-2 h-2 rounded-full bg-s-urgent" />
                 <h3 className="text-sm font-semibold text-auri-text">Gap Radar</h3>
                 <span className="text-xs text-auri-muted">agent-proposed</span>
               </div>
@@ -316,7 +316,7 @@ export default function CommandCenter() {
                 <div className="mb-3 -mt-1">
                   <button
                     onClick={() => setGapsExpanded(!gapsExpanded)}
-                    className="text-xs text-auri-blue hover:underline"
+                    className="text-xs text-auri-text hover:underline"
                   >
                     {gapsExpanded ? 'Show less' : `+${hiddenGapsCount} more`}
                   </button>
@@ -326,7 +326,7 @@ export default function CommandCenter() {
                 {visibleGaps.map((g, idx) => (
                   <div key={idx} className="p-4 rounded-lg border border-auri-border bg-auri-card">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] font-medium uppercase tracking-wider text-auri-blue">{g.type}</span>
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-auri-text">{g.type}</span>
                       <span className="text-[10px] text-auri-muted">{g.moRef}</span>
                     </div>
                     <div className="text-sm text-auri-text font-medium mb-1.5 leading-snug">{g.suggestion}</div>
@@ -348,7 +348,7 @@ export default function CommandCenter() {
               className="w-full flex items-center justify-between gap-3 p-5 text-left hover:bg-auri-card/50 transition-all rounded-xl"
             >
               <div className="flex items-center gap-2">
-                <Flame size={14} className="text-auri-blue" />
+                <div className="w-2 h-2 rounded-full bg-s-emerging" />
                 <h3 className="text-sm font-semibold text-auri-text">Emerging Themes</h3>
                 <span className="text-xs text-auri-muted">growth-ranked</span>
               </div>
@@ -363,7 +363,7 @@ export default function CommandCenter() {
                 <div className="mb-3 -mt-1">
                   <button
                     onClick={() => setThemesExpanded(!themesExpanded)}
-                    className="text-xs text-auri-blue hover:underline"
+                    className="text-xs text-auri-text hover:underline"
                   >
                     {themesExpanded ? 'Show less' : `+${hiddenThemesCount} more`}
                   </button>
@@ -374,7 +374,7 @@ export default function CommandCenter() {
                 <NavLink
                   key={t.id}
                   to="/insights"
-                  className="block p-3 rounded-lg border border-auri-border hover:border-auri-blue/40 bg-auri-card transition-all"
+                  className="block p-3 rounded-lg border border-auri-border hover:border-auri-text/40 bg-auri-card transition-all"
                 >
                   <div className="flex items-start justify-between gap-2 mb-1.5">
                     <span className="text-sm font-medium text-auri-text leading-snug">{t.theme}</span>
@@ -384,7 +384,7 @@ export default function CommandCenter() {
                   <div className="flex items-center gap-2 text-[10px] text-auri-muted">
                     <span>First detected {t.firstDetected}</span>
                     <span>·</span>
-                    <span className="text-auri-blue">{t.relatedKIT}</span>
+                    <span className="text-auri-text">{t.relatedKIT}</span>
                   </div>
                 </NavLink>
               ))}
