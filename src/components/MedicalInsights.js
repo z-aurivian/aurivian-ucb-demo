@@ -1,35 +1,34 @@
 import React, { useState } from 'react';
-import { GitBranch, Activity, Target } from 'lucide-react';
+import { Stethoscope, Map, Brain } from 'lucide-react';
 import AgentSurfaceHeader from './AgentSurfaceHeader';
-import StrategyToAction from './StrategyToAction';
-import KITPerformance from './KITPerformance';
-import InsightSources from './InsightSources';
+import NovaTab1MedicalStrategy from './NovaTab1MedicalStrategy';
+import NovaTab2FieldStrategy from './NovaTab2FieldStrategy';
+import NovaTab3InsightIntelligence from './NovaTab3InsightIntelligence';
 
-// NOVA surface. Three tabs:
-// - Strategy-to-Action: the canonical NOVA output (ISP→MO→LP→insights→actions)
-// - KIT Performance: scorecards, AI insight analysis, emerging themes, trend
-// - Insight Sources & Impact: source value matrix + insight-to-impact lineage
+// NOVA surface — v3.0 (June 2026)
+// Tab 1: Medical Strategy  — ISP pillars, MOs, Tactical POA, Insight Loop, MAO dashboard, ROI
+// Tab 2: Field Strategy    — National / Territory / MSL view modes with HCP impact & KIT intel
+// Tab 3: Insight Intelligence — KIQ matrix + actionable insights (moved from Tab 1 in v3)
 const TABS = [
-  { id: 'strategy', label: 'Strategy-to-Action',     icon: GitBranch },
-  { id: 'kit',      label: 'KIT Performance',        icon: Activity },
-  { id: 'sources',  label: 'Insight Sources & Impact', icon: Target },
+  { id: 'medical',  label: 'Medical Strategy',      Icon: Stethoscope },
+  { id: 'field',    label: 'Field Strategy',         Icon: Map         },
+  { id: 'insight',  label: 'Insight Intelligence',   Icon: Brain       },
 ];
 
-function MedicalInsights() {
-  const [activeTab, setActiveTab] = useState('strategy');
+export default function MedicalInsights() {
+  const [activeTab, setActiveTab] = useState('medical');
 
   return (
     <>
       <AgentSurfaceHeader agentId="nova" />
 
       <div className="flex items-center gap-1 border-b border-auri-border mb-6">
-        {TABS.map((t) => {
-          const Icon = t.icon;
-          const isActive = activeTab === t.id;
+        {TABS.map(({ id, label, Icon }) => {
+          const isActive = activeTab === id;
           return (
             <button
-              key={t.id}
-              onClick={() => setActiveTab(t.id)}
+              key={id}
+              onClick={() => setActiveTab(id)}
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
                 isActive
                   ? 'border-auri-text text-auri-text'
@@ -37,17 +36,15 @@ function MedicalInsights() {
               }`}
             >
               <Icon size={15} />
-              {t.label}
+              {label}
             </button>
           );
         })}
       </div>
 
-      {activeTab === 'strategy' && <StrategyToAction />}
-      {activeTab === 'kit'      && <KITPerformance />}
-      {activeTab === 'sources'  && <InsightSources />}
+      {activeTab === 'medical' && <NovaTab1MedicalStrategy />}
+      {activeTab === 'field'   && <NovaTab2FieldStrategy />}
+      {activeTab === 'insight' && <NovaTab3InsightIntelligence />}
     </>
   );
 }
-
-export default MedicalInsights;
